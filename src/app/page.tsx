@@ -189,7 +189,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-8 grid gap-2 sm:grid-cols-3">
+              <div className="mt-8 hidden sm:grid gap-2 sm:grid-cols-3">
                 {[
                   ['3', 'Core focus areas'],
                   ['Early', 'Career stage'],
