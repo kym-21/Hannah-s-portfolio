@@ -1,8 +1,6 @@
 # Hannah Legal Portfolio
 
-This project is a personal portfolio website for Hannah Njeri, an early-career lawyer focused on real estate and commercial law.
-
-The site is designed to feel clean, modern, and trustworthy, with a premium visual style, responsive layouts, and section-by-section storytelling of profile, legal insights, practical experience, services, and contact details.
+This project is a personal portfolio website for Hannah, an early-career lawyer focused on real estate and commercial law.
 
 ## What This Portfolio Highlights
 
