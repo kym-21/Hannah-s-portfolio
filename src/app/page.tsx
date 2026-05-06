@@ -91,7 +91,7 @@ const principles = [
 export default function Home() {
   return (
     <main className="relative">
-      <div className="mx-auto flex w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-5 py-6 sm:px-8 lg:px-10">
         <header className="flex items-center justify-between border-b border-line/80 pb-5 pt-4">
           <div>
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Legal Portfolio</p>
@@ -156,7 +156,7 @@ export default function Home() {
             </div>
           </div>
 
-          <aside id="profile" className="relative fade-in" data-delay="1">
+          <aside id="profile" className="relative scroll-mt-24 fade-in" data-delay="1">
             <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-gold/25 via-gold/10 to-transparent blur-2xl" />
             <div className="absolute -inset-3 -z-10 rounded-[2.2rem] border border-gold/20" />
             <div className="rounded-[2rem] border border-line bg-white/95 p-8 shadow-lg backdrop-blur-xl border-l-4 border-l-gold">
@@ -205,7 +205,7 @@ export default function Home() {
           </aside>
         </section>
 
-        <section id="articles" className="pt-0 pb-6">
+        <section id="articles" className="scroll-mt-24 pt-0 pb-6">
           <div className="mb-4 flex items-end justify-between gap-6 border-b border-line pb-3">
             <div className="fade-in" data-delay="1">
               <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Insights & expertise</p>
@@ -301,7 +301,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="experience" className="py-16 lg:py-20">
+        <section id="experience" className="scroll-mt-24 py-16 lg:py-20">
           <div className="fade-in mb-10 text-center" data-delay="1">
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Professional experience</p>
             <h2 className="display-font mt-3 text-4xl font-semibold tracking-[-0.03em] text-ink sm:text-5xl">
@@ -356,7 +356,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="pb-16">
+        <section id="contact" className="scroll-mt-24 pb-16">
           <div className="fade-in relative overflow-hidden rounded-[1.5rem] border border-ink/10 bg-ink px-5 py-7 text-paper shadow-soft sm:rounded-[2rem] sm:px-6 sm:py-8 lg:p-10" data-delay="1">
             <div className="pointer-events-none absolute -top-20 right-0 h-72 w-72 rounded-full bg-gradient-to-br from-gold/25 to-transparent blur-3xl" />
             <div className="relative grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
@@ -384,7 +384,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div id="contact" className="rounded-[1.25rem] border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.14),rgba(255,255,255,0.04))] p-5 backdrop-blur-xl sm:rounded-[1.5rem] sm:p-6">
+              <div className="rounded-[1.25rem] border border-white/10 bg-[linear-gradient(160deg,rgba(255,255,255,0.14),rgba(255,255,255,0.04))] p-5 backdrop-blur-xl sm:rounded-[1.5rem] sm:p-6">
                 <p className="text-xs uppercase tracking-[0.22em] text-paper/70">Contact</p>
                 <h3 className="display-font mt-3 text-2xl text-paper sm:text-3xl">Start a legal conversation</h3>
                 <p className="mt-3 text-sm leading-6 text-paper/75">
