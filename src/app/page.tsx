@@ -90,7 +90,7 @@ const principles = [
 
 export default function Home() {
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative">
       <div className="mx-auto flex w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
         <header className="flex items-center justify-between border-b border-line/80 pb-5 pt-4">
           <div>
