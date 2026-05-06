@@ -91,7 +91,7 @@ const principles = [
 export default function Home() {
   return (
     <main className="relative">
-      <div className="mx-auto flex w-full max-w-6xl flex-col px-5 py-6 sm:px-8 lg:px-10">
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-5 py-6 sm:px-8 lg:px-10 viewport-zoom">
         <header className="flex items-center justify-between border-b border-line/80 pb-5 pt-4">
           <div>
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Legal Portfolio</p>

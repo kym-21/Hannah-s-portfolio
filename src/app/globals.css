@@ -8,13 +8,11 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
 }
 
 body {
   min-height: 100vh;
   font-family: var(--font-sans), sans-serif;
-  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(182, 141, 64, 0.12), transparent 30%),
     radial-gradient(circle at top right, rgba(17, 17, 17, 0.05), transparent 28%),
@@ -349,5 +347,17 @@ body {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* Desktop-only: simulate browser zoom-out (approx 67%) by scaling the root container.
+   This keeps mobile/tablet layouts unchanged and only applies on wide viewports. */
+@media (min-width: 1200px) {
+  .viewport-zoom {
+    transform: scale(0.67);
+    transform-origin: top center;
+    width: calc(100% / 0.67);
+    margin: 0 auto;
+    will-change: transform;
   }
 }
