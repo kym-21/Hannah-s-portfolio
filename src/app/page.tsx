@@ -189,15 +189,15 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-8 grid gap-2 sm:grid-cols-3">
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {[
-                  ['3', 'Core focus areas'],
-                  ['Early', 'Career stage'],
-                  ['Growing', 'Client portfolio'],
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-xl border border-gold/20 bg-gradient-to-br from-gold/10 to-transparent backdrop-blur px-4 py-4 text-center shadow-sm hover:shadow-md transition">
-                    <p className="display-font text-3xl font-bold text-gold">{value}</p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-stone font-semibold">{label}</p>
+                  ['Conveyancing', 'Transaction support'],
+                  ['Contracts', 'Drafting and review'],
+                  ['Compliance', 'Practical advisory'],
+                ].map(([title, detail]) => (
+                  <div key={title} className="rounded-xl border border-gold/20 bg-gradient-to-br from-gold/10 to-transparent backdrop-blur px-4 py-4 text-center shadow-sm hover:shadow-md transition">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">{title}</p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.16em] text-stone font-semibold">{detail}</p>
                   </div>
                 ))}
               </div>
