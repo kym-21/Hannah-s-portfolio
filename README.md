@@ -19,3 +19,4 @@ This project is a personal portfolio website for Hannah, an early-career lawyer 
 ## Project Goal
 
 To present Hannah's legal work in a way that is polished and credible while remaining realistic about early-career experience and growth.
+ 

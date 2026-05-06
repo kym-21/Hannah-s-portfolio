@@ -81,10 +81,17 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+@media (min-width: 1200px) {
+  .viewport-zoom {
+    transform-origin: top center;
+    width: 149.2537%;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(0.67);
+  }
+}
+
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
-  .articles-deck:hover .articles-stage-note,
-  .articles-deck:hover .articles-stage-quote,
-  .articles-deck:hover .articles-callout,
   .articles-deck:has(.article-card:hover) .articles-stage-note,
   .articles-deck:has(.article-card:hover) .articles-stage-quote,
   .articles-deck:has(.article-card:hover) .articles-callout,
@@ -128,7 +135,6 @@ body {
 }
 
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
-  .articles-cards:hover .article-card,
   .articles-cards:has(.article-card:hover) .article-card,
   .articles-deck:has(.articles-hover-bridge:hover) .article-card,
   .articles-cards:focus-within .article-card {
@@ -158,21 +164,18 @@ body {
     opacity: 1;
   }
 
-  .articles-cards:hover .article-card:nth-child(1),
   .articles-cards:has(.article-card:hover) .article-card:nth-child(1),
   .articles-deck:has(.articles-hover-bridge:hover) .article-card:nth-child(1),
   .articles-cards:focus-within .article-card:nth-child(1) {
     transform: translateX(0) translateY(0) scale(1);
   }
 
-  .articles-cards:hover .article-card:nth-child(2),
   .articles-cards:has(.article-card:hover) .article-card:nth-child(2),
   .articles-deck:has(.articles-hover-bridge:hover) .article-card:nth-child(2),
   .articles-cards:focus-within .article-card:nth-child(2) {
     transform: translateX(calc(100% + 1rem)) translateY(0) scale(1);
   }
 
-  .articles-cards:hover .article-card:nth-child(3),
   .articles-cards:has(.article-card:hover) .article-card:nth-child(3),
   .articles-deck:has(.articles-hover-bridge:hover) .article-card:nth-child(3),
   .articles-cards:focus-within .article-card:nth-child(3) {
@@ -354,17 +357,5 @@ body {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-}
-
-/* Desktop-only: simulate browser zoom-out (approx 67%) by scaling the root container.
-   This keeps mobile/tablet layouts unchanged and only applies on wide viewports. */
-@media (min-width: 1200px) {
-  .viewport-zoom {
-    transform: scale(0.67);
-    transform-origin: top center;
-    width: calc(100% / 0.67);
-    margin: 0 auto;
-    will-change: transform;
   }
 }
