@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: 'Hannah | Legal Portfolio',
   description:
     'A modern legal portfolio for a law graduate with court exposure and practical experience in the legal sector.',
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({
