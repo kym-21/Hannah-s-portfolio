@@ -635,8 +635,8 @@ export default function Home() {
         </section>
 
         {openArticle && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 backdrop-blur-sm p-4 animate-fade-in">
-            <div className="w-full max-w-4xl max-h-[90vh] rounded-[2.5rem] border border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
+          <div className="fixed inset-0 z-50 flex flex-col bg-ink/40 backdrop-blur-sm animate-fade-in">
+            <div className="w-full flex-1 rounded-b-[2.5rem] border-b border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
               <div className="article-modal-content relative h-full overflow-y-auto">
                 {/* Close button */}
                 <button
@@ -651,8 +651,8 @@ export default function Home() {
                 </button>
 
                 {/* Article content */}
-                <div className="px-8 py-12 sm:px-12 sm:py-16 lg:px-16">
-                  <div className="max-w-2xl">
+                <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10 sm:py-16 lg:px-12">
+                  <div>
                     <div className="flex items-center gap-3 mb-6">
                       <span className="text-[0.65rem] uppercase tracking-[0.28em] text-gold font-semibold">{openArticle.category}</span>
                       <span className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">{openArticle.readTime}</span>
@@ -678,7 +678,7 @@ export default function Home() {
                         </div>
                       </div>
 
-                      <div className="border-t border-line pt-12">
+                      <div className="border-t border-line pt-12 pb-8">
                         <h2 className="display-font text-2xl font-semibold text-ink mb-6">Next steps</h2>
                         <p className="text-base leading-7 text-stone mb-8">
                           Have questions about this topic or need tailored legal guidance? Reach out to discuss how these principles apply to your situation.
