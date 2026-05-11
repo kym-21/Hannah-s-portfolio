@@ -151,6 +151,16 @@ export default function Home() {
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', Boolean(openArticle));
 
+    if (openArticle) {
+      // Scroll modal to top when article opens
+      setTimeout(() => {
+        const modalContent = document.querySelector('.article-modal-content');
+        if (modalContent) {
+          modalContent.scrollTop = 0;
+        }
+      }, 0);
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenArticleSlug(null);
@@ -627,7 +637,7 @@ export default function Home() {
         {openArticle && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 backdrop-blur-sm p-4 animate-fade-in">
             <div className="w-full max-w-4xl max-h-[90vh] rounded-[2.5rem] border border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
-              <div className="relative h-full overflow-y-auto">
+              <div className="article-modal-content relative h-full overflow-y-auto">
                 {/* Close button */}
                 <button
                   type="button"
