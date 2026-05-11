@@ -143,13 +143,17 @@ const defaultContactForm: ContactFormState = {
 };
 
 export default function Home() {
-  const [selectedArticleSlug, setSelectedArticleSlug] = useState(articles[0].slug);
+  const [openArticleSlug, setOpenArticleSlug] = useState<string | null>(null);
   const [contactForm, setContactForm] = useState<ContactFormState>(defaultContactForm);
 
-  const selectedArticle = articles.find((article) => article.slug === selectedArticleSlug) ?? articles[0];
+  const openArticle = articles.find((article) => article.slug === openArticleSlug) ?? null;
 
   const handleArticleOpen = (article: Article) => {
-    setSelectedArticleSlug(article.slug);
+    setOpenArticleSlug(article.slug);
+  };
+
+  const handleArticleClose = () => {
+    setOpenArticleSlug(null);
   };
 
   const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -349,7 +353,7 @@ export default function Home() {
                     key={article.slug}
                     type="button"
                     onClick={() => handleArticleOpen(article)}
-                    className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:shadow-soft"
+                    className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft"
                   >
                     <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
                       <span>{article.category}</span>
@@ -357,44 +361,13 @@ export default function Home() {
                     </div>
                     <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
                     <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
-                    <div className="mt-6 flex items-center justify-end gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
+                    <div className="mt-6 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
+                      <span>Tap to expand</span>
                       <span className="font-semibold text-ink transition group-hover:text-gold">Open article</span>
                     </div>
                   </button>
                 );
               })}
-            </div>
-
-            <div className="mt-8 rounded-[2rem] border border-line bg-white/88 p-6 shadow-sm backdrop-blur sm:p-7">
-              <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                <div>
-                  <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Selected article</p>
-                  <h3 className="display-font mt-3 text-3xl font-semibold leading-tight text-ink sm:text-4xl">{selectedArticle.title}</h3>
-                  <p className="mt-4 max-w-2xl text-base leading-7 text-stone">{selectedArticle.detail}</p>
-                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                    {selectedArticle.highlights.map((highlight) => (
-                      <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
-                        {highlight}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-[1.5rem] border border-gold/15 bg-[linear-gradient(160deg,rgba(182,141,64,0.08),rgba(255,255,255,0.88))] p-5 shadow-sm">
-                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-semibold">Reader analytics</p>
-                  <p className="display-font mt-3 text-4xl font-semibold text-gold">Backend pending</p>
-                  <p className="mt-3 text-sm leading-6 text-stone">
-                    Reader stats are intentionally hidden until your backend endpoint is connected, so the section never shows fake numbers.
-                  </p>
-                  <div className="mt-5 space-y-2 text-xs uppercase tracking-[0.18em] text-stone">
-                    <p>{selectedArticle.category}</p>
-                    <p>{selectedArticle.readTime}</p>
-                  </div>
-                  <a href="#contact" className="mt-6 inline-flex rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition hover:bg-ink/90">
-                    Ask for the full article
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -534,7 +507,7 @@ export default function Home() {
                 </div>
 
                 <form className="mt-6 grid gap-4" onSubmit={handleContactSubmit}>
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="grid gap-4 lg:grid-cols-2">
                     <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
                       Name
                       <input
@@ -543,7 +516,7 @@ export default function Home() {
                         onChange={(event) => setContactForm((current) => ({ ...current, name: event.target.value }))}
                         required
                         placeholder="Your full name"
-                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                        className="w-full rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
                       />
                     </label>
                     <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
@@ -555,7 +528,7 @@ export default function Home() {
                         onChange={(event) => setContactForm((current) => ({ ...current, email: event.target.value }))}
                         required
                         placeholder="you@example.com"
-                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                        className="w-full rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
                       />
                     </label>
                     <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
@@ -568,24 +541,38 @@ export default function Home() {
                         onChange={(event) => setContactForm((current) => ({ ...current, phone: event.target.value }))}
                         required
                         placeholder="+254 700 000 000"
-                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                        className="w-full rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
                       />
                     </label>
                     <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
                       Matter type
-                      <select
-                        value={contactForm.matterType}
-                        onChange={(event) => setContactForm((current) => ({ ...current, matterType: event.target.value }))}
-                        required
-                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
-                      >
-                        <option value="" className="text-ink">Select matter type</option>
-                        {matterTypeOptions.map((option) => (
-                          <option key={option} value={option} className="text-ink">
-                            {option}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={contactForm.matterType}
+                          onChange={(event) => setContactForm((current) => ({ ...current, matterType: event.target.value }))}
+                          required
+                          className="w-full appearance-none rounded-xl border border-white/12 bg-[rgba(255,255,255,0.08)] px-4 py-3 pr-11 text-base text-paper outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                        >
+                          <option value="" className="text-ink">Select matter type</option>
+                          {matterTypeOptions.map((option) => (
+                            <option key={option} value={option} className="text-ink">
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        <svg
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                          className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-paper/75"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m5 7 5 5 5-5" />
+                        </svg>
+                      </div>
                     </label>
                   </div>
                   <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
@@ -596,7 +583,7 @@ export default function Home() {
                       required
                       rows={4}
                       placeholder="Share the issue, timeline, and any documents already available."
-                      className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                      className="w-full rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
                     />
                   </label>
 
@@ -613,6 +600,61 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {openArticle ? (
+          <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/55 px-4 py-4 backdrop-blur-sm sm:items-center sm:px-6" role="dialog" aria-modal="true" aria-labelledby="article-modal-title">
+            <button
+              type="button"
+              aria-label="Close article"
+              className="absolute inset-0 cursor-default"
+              onClick={handleArticleClose}
+            />
+            <div className="relative z-10 w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/20 bg-white shadow-[0_20px_80px_rgba(17,17,17,0.22)]">
+              <div className="flex items-start justify-between gap-4 border-b border-line/70 px-5 py-4 sm:px-7 sm:py-5">
+                <div>
+                  <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Article preview</p>
+                  <h3 id="article-modal-title" className="display-font mt-2 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
+                    {openArticle.title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleArticleClose}
+                  className="rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink transition hover:border-gold/40 hover:text-gold"
+                >
+                  Close
+                </button>
+              </div>
+
+              <div className="grid gap-6 px-5 py-5 sm:px-7 sm:py-7 lg:grid-cols-[1.2fr_0.8fr]">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.22em] text-gold">
+                    <span>{openArticle.category}</span>
+                    <span className="text-stone">{openArticle.readTime}</span>
+                  </div>
+                  <p className="mt-4 text-base leading-7 text-stone">{openArticle.detail}</p>
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    {openArticle.highlights.map((highlight) => (
+                      <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
+                        {highlight}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-line bg-[linear-gradient(180deg,rgba(247,241,231,0.9),rgba(255,255,255,0.95))] p-5">
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-semibold">Read more</p>
+                  <p className="mt-3 text-sm leading-6 text-stone">
+                    This modal keeps the article interaction focused and modern. Your backend can later replace the preview content with the full article page or remote data.
+                  </p>
+                  <a href="#contact" onClick={handleArticleClose} className="mt-6 inline-flex rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition hover:bg-ink/90">
+                    Ask about this topic
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
 
       </div>
     </main>
