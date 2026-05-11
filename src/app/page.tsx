@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 type Article = {
   slug: string;
@@ -147,6 +147,23 @@ export default function Home() {
   const [contactForm, setContactForm] = useState<ContactFormState>(defaultContactForm);
 
   const openArticle = articles.find((article) => article.slug === openArticleSlug) ?? null;
+
+  useEffect(() => {
+    document.body.classList.toggle('overflow-hidden', Boolean(openArticle));
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenArticleSlug(null);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [openArticle]);
 
   const handleArticleOpen = (article: Article) => {
     setOpenArticleSlug(article.slug);
@@ -348,24 +365,34 @@ export default function Home() {
 
             <div className="articles-cards">
               {articles.map((article) => {
+                const isOpen = openArticleSlug === article.slug;
+
                 return (
-                  <button
-                    key={article.slug}
-                    type="button"
-                    onClick={() => handleArticleOpen(article)}
-                    className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft"
-                  >
+                  <article key={article.slug} className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft">
                     <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
                       <span>{article.category}</span>
                       <span className="text-stone">{article.readTime}</span>
                     </div>
                     <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
                     <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
-                    <div className="mt-6 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
-                      <span>Tap to expand</span>
+
+                    <div className="cd-modal-action mt-6">
+                      <button
+                        type="button"
+                        onClick={() => handleArticleOpen(article)}
+                        className={`btn ${isOpen ? 'to-circle' : ''}`}
+                        data-type="modal-trigger"
+                      >
+                        Open article
+                      </button>
+                      <span className={`cd-modal-bg ${isOpen ? 'is-visible' : ''}`} aria-hidden="true" />
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
+                      <span>Modern article preview</span>
                       <span className="font-semibold text-ink transition group-hover:text-gold">Open article</span>
                     </div>
-                  </button>
+                  </article>
                 );
               })}
             </div>
@@ -602,47 +629,30 @@ export default function Home() {
         </section>
 
         {openArticle ? (
-          <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/55 px-4 py-4 backdrop-blur-sm sm:items-center sm:px-6" role="dialog" aria-modal="true" aria-labelledby="article-modal-title">
-            <button
-              type="button"
-              aria-label="Close article"
-              className="absolute inset-0 cursor-default"
-              onClick={handleArticleClose}
-            />
-            <div className="relative z-10 w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/20 bg-white shadow-[0_20px_80px_rgba(17,17,17,0.22)]">
-              <div className="flex items-start justify-between gap-4 border-b border-line/70 px-5 py-4 sm:px-7 sm:py-5">
-                <div>
-                  <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Article preview</p>
-                  <h3 id="article-modal-title" className="display-font mt-2 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
-                    {openArticle.title}
-                  </h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleArticleClose}
-                  className="rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink transition hover:border-gold/40 hover:text-gold"
-                >
-                  Close
-                </button>
-              </div>
+          <div className="cd-section modal-is-visible">
+            <div className="cd-modal-action" aria-hidden="true">
+              <span className="btn to-circle">Fire Modal Window</span>
+              <span className="cd-modal-bg is-visible" />
+            </div>
 
-              <div className="grid gap-6 px-5 py-5 sm:px-7 sm:py-7 lg:grid-cols-[1.2fr_0.8fr]">
-                <div>
-                  <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.22em] text-gold">
-                    <span>{openArticle.category}</span>
-                    <span className="text-stone">{openArticle.readTime}</span>
-                  </div>
-                  <p className="mt-4 text-base leading-7 text-stone">{openArticle.detail}</p>
-                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                    {openArticle.highlights.map((highlight) => (
-                      <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
-                        {highlight}
-                      </div>
-                    ))}
-                  </div>
+            <div className="cd-modal" role="dialog" aria-modal="true" aria-labelledby="article-modal-title">
+              <div className="cd-modal-content">
+                <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Article preview</p>
+                <h3 id="article-modal-title" className="display-font mt-2 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
+                  {openArticle.title}
+                </h3>
+
+                <p className="mt-4 text-base leading-7 text-stone">{openArticle.detail}</p>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  {openArticle.highlights.map((highlight) => (
+                    <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
+                      {highlight}
+                    </div>
+                  ))}
                 </div>
 
-                <div className="rounded-[1.5rem] border border-line bg-[linear-gradient(180deg,rgba(247,241,231,0.9),rgba(255,255,255,0.95))] p-5">
+                <div className="mt-6 rounded-[1.5rem] border border-line bg-[linear-gradient(180deg,rgba(247,241,231,0.9),rgba(255,255,255,0.95))] p-5 text-left text-ink">
                   <p className="text-xs uppercase tracking-[0.22em] text-stone font-semibold">Read more</p>
                   <p className="mt-3 text-sm leading-6 text-stone">
                     This modal keeps the article interaction focused and modern. Your backend can later replace the preview content with the full article page or remote data.
@@ -653,6 +663,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <button type="button" onClick={handleArticleClose} className="cd-modal-close">
+              Close
+            </button>
           </div>
         ) : null}
 
