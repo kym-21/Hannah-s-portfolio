@@ -392,53 +392,6 @@ export default function Home() {
                 );
               })}
             </div>
-
-            {openArticle && (
-              <div className="articles-panel mt-8 rounded-[1.75rem] border border-gold/20 bg-gradient-to-br from-gold/5 to-white p-8 shadow-soft">
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <div className="flex items-center gap-3">
-                    <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Featured article</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleArticleClose}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-ink/10 bg-white transition hover:border-ink/20 hover:bg-white/80"
-                    aria-label="Close article"
-                  >
-                    <svg className="h-4 w-4 text-ink" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-
-                <h2 className="display-font text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-                  {openArticle.title}
-                </h2>
-
-                <p className="mt-6 text-base leading-7 text-stone">{openArticle.detail}</p>
-
-                <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                  {openArticle.highlights.map((highlight) => (
-                    <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
-                      {highlight}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <a href="#contact" className="inline-flex rounded-full bg-ink px-6 py-2.5 text-sm font-semibold text-paper transition hover:bg-ink/90">
-                    Ask about this topic
-                  </a>
-                  <button
-                    type="button"
-                    onClick={handleArticleClose}
-                    className="inline-flex rounded-full border border-ink/15 bg-white/70 px-6 py-2.5 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white"
-                  >
-                    Back to articles
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         </section>
 
@@ -671,7 +624,81 @@ export default function Home() {
           </div>
         </section>
 
+        {openArticle && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 backdrop-blur-sm p-4 animate-fade-in">
+            <div className="w-full max-w-4xl max-h-[90vh] rounded-[2.5rem] border border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
+              <div className="relative h-full overflow-y-auto">
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={handleArticleClose}
+                  className="sticky top-6 right-6 float-right z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-white/95 transition hover:border-ink/20 hover:bg-white shadow-lg"
+                  aria-label="Close article"
+                >
+                  <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Article content */}
+                <div className="px-8 py-12 sm:px-12 sm:py-16 lg:px-16">
+                  <div className="max-w-2xl">
+                    <div className="flex items-center gap-3 mb-6">
+                      <span className="text-[0.65rem] uppercase tracking-[0.28em] text-gold font-semibold">{openArticle.category}</span>
+                      <span className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">{openArticle.readTime}</span>
+                    </div>
+
+                    <h1 className="display-font text-5xl sm:text-6xl font-semibold leading-tight tracking-[-0.03em] text-ink mb-8">
+                      {openArticle.title}
+                    </h1>
+
+                    <div className="prose prose-lg max-w-none">
+                      <p className="text-lg leading-8 text-stone mb-8">
+                        {openArticle.detail}
+                      </p>
+
+                      <div className="my-12">
+                        <h2 className="display-font text-2xl font-semibold text-ink mb-6">Key points</h2>
+                        <div className="grid gap-4 sm:grid-cols-3">
+                          {openArticle.highlights.map((highlight) => (
+                            <div key={highlight} className="rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 to-white px-6 py-6">
+                              <p className="text-base font-medium leading-7 text-ink">{highlight}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="border-t border-line pt-12">
+                        <h2 className="display-font text-2xl font-semibold text-ink mb-6">Next steps</h2>
+                        <p className="text-base leading-7 text-stone mb-8">
+                          Have questions about this topic or need tailored legal guidance? Reach out to discuss how these principles apply to your situation.
+                        </p>
+                        <div className="flex flex-wrap gap-4">
+                          <a 
+                            href="#contact" 
+                            className="inline-flex rounded-full bg-ink px-8 py-3.5 text-base font-semibold text-paper transition hover:bg-ink/90 shadow-md hover:shadow-lg"
+                          >
+                            Ask about this topic
+                          </a>
+                          <button
+                            type="button"
+                            onClick={handleArticleClose}
+                            className="inline-flex rounded-full border border-ink/20 bg-white px-8 py-3.5 text-base font-semibold text-ink transition hover:border-ink/40 hover:bg-white/80 shadow-md hover:shadow-lg"
+                          >
+                            Back to articles
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </main>
   );
 }
+
