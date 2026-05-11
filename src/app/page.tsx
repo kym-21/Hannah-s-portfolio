@@ -1,9 +1,31 @@
+"use client";
+
+import { FormEvent, useState } from 'react';
+
+type Article = {
+  slug: string;
+  title: string;
+  category: string;
+  summary: string;
+  readTime: string;
+  detail: string;
+  highlights: string[];
+};
+
+type ContactFormState = {
+  name: string;
+  email: string;
+  phone: string;
+  matterType: string;
+  description: string;
+};
+
 const strengths = [
   {
     title: 'Property law excellence',
     description: 'Real estate documentation and conveyancing support handled with consistency and precision.',
     proof: 'Practice-tested at AMCO Properties',
-    href: '#profile',
+    href: '#services',
   },
   {
     title: 'Judicial experience',
@@ -28,27 +50,39 @@ const services = [
   'Litigation support & case management',
 ];
 
-const articles = [
+const articles: Article[] = [
   {
+    slug: 'property-sale-agreement-checklist',
     title: 'What to check before signing a property sale agreement',
     category: 'Property Law',
     summary:
       'A practical legal checklist covering title review, contractual red flags, and the due diligence steps that protect buyers and sellers.',
     readTime: '4 min read',
+    detail:
+      'The strongest property agreements are built on careful checks before the parties commit. Title verification, ownership history, encumbrances, completion timelines, and payment safeguards all matter before signatures go on the page.',
+    highlights: ['Title checks before signing', 'Flags hidden contract risk', 'Protects both buyer and seller'],
   },
   {
+    slug: 'why-due-diligence-matters',
     title: 'Why due diligence matters in real estate transactions',
     category: 'Transactions',
     summary:
       'An article-style overview of the legal and commercial risks that surface when conveyancing is rushed or poorly documented.',
     readTime: '5 min read',
+    detail:
+      'Due diligence slows the deal down just enough to stop expensive mistakes. It helps confirm the land status, validates the parties, and makes sure the legal steps match the commercial promise.',
+    highlights: ['Confirms land status', 'Reduces transaction risk', 'Supports clean completion'],
   },
   {
+    slug: 'building-trust-in-practice',
     title: 'How a young lawyer builds trust in a professional practice',
     category: 'Career Notes',
     summary:
       'A reflection on communication, responsiveness, and professional discipline in the early stages of legal practice.',
     readTime: '3 min read',
+    detail:
+      'Trust grows when legal work is clear, timely, and well explained. Responsiveness, proper follow-up, and calm judgment matter just as much as the technical answer behind the advice.',
+    highlights: ['Clear and timely communication', 'Calm professional judgment', 'Follow-through builds trust'],
   },
 ];
 
@@ -88,19 +122,80 @@ const principles = [
   },
 ];
 
+const contactEmail = 'njerik103@gmail.com';
+const contactPhone = '+254719445603';
+const contactPhoneDisplay = '+254 719 445 603';
+const whatsappHref = `https://wa.me/254719445603?text=${encodeURIComponent('Hello Hannah, I would like to discuss a legal matter.')}`;
+const matterTypeOptions = [
+  'Property sale agreement',
+  'Conveyancing / transfer',
+  'Contract review',
+  'Litigation support',
+  'Commercial advisory',
+  'Other matter',
+];
+const defaultContactForm: ContactFormState = {
+  name: '',
+  email: '',
+  phone: '',
+  matterType: '',
+  description: '',
+};
+
 export default function Home() {
+  const [selectedArticleSlug, setSelectedArticleSlug] = useState(articles[0].slug);
+  const [contactForm, setContactForm] = useState<ContactFormState>(defaultContactForm);
+
+  const selectedArticle = articles.find((article) => article.slug === selectedArticleSlug) ?? articles[0];
+
+  const handleArticleOpen = (article: Article) => {
+    setSelectedArticleSlug(article.slug);
+  };
+
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const subject = `${contactForm.matterType || 'Legal inquiry'} from ${contactForm.name || 'a visitor'}`;
+    const body = [
+      `Name: ${contactForm.name}`,
+      `Email: ${contactForm.email}`,
+      `Phone: ${contactForm.phone}`,
+      `Matter type: ${contactForm.matterType}`,
+      '',
+      contactForm.description,
+    ].join('\n');
+
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
-    <main className="relative">
+    <main id="top" className="relative">
       <div className="viewport-zoom mx-auto flex w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
-        <header className="flex items-center justify-between border-b border-line/80 pb-5 pt-4">
-          <div>
-            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Legal Portfolio</p>
-            <p className="mt-2 text-lg font-medium text-ink">Hannah Njeri</p>
-          </div>
+        <header className="flex items-center justify-between gap-4 border-b border-line/80 pb-5 pt-4">
+          <a href="#top" className="group flex items-center gap-3 text-left">
+            <span className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-[1.35rem] border border-gold/25 bg-white/85 shadow-sm">
+              <span className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(182,141,64,0.24),transparent_72%)]" />
+              <svg viewBox="0 0 64 64" className="relative h-8 w-8 text-gold" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M32 12v24" />
+                <path d="M23 20l9-8 9 8" />
+                <path d="M17 24h30" />
+                <path d="M21 24l-8 14" />
+                <path d="M43 24l8 14" />
+                <path d="M16 38c4 0 8-3 8-7" />
+                <path d="M48 38c-4 0-8-3-8-7" />
+                <path d="M19 48h26" />
+                <path d="M24 48c0-6 3-10 8-12 5 2 8 6 8 12" />
+              </svg>
+            </span>
+            <span>
+              <span className="display-font block text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">Hannah Law</span>
+              <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.28em] text-stone">Property & commercial counsel</span>
+            </span>
+          </a>
           <div className="ml-auto flex items-center gap-4 md:gap-6">
             <nav className="hidden items-center gap-6 text-base font-medium text-stone md:flex">
               <a className="transition hover:text-ink" href="#profile">Profile</a>
-              <a className="transition hover:text-ink" href="#experience">Experience</a>
+              <a className="transition hover:text-ink" href="#services">Services</a>
               <a className="transition hover:text-ink" href="#articles">Articles</a>
             </nav>
             <a
@@ -248,22 +343,58 @@ export default function Home() {
             </div>
 
             <div className="articles-cards">
-              {articles.map((article) => (
-                <article key={article.title} tabIndex={0} className="article-card group rounded-[1.75rem] border border-line bg-white p-6 shadow-sm transition hover:shadow-soft">
-                  <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
-                    <span>{article.category}</span>
-                    <span className="text-stone">{article.readTime}</span>
-                  </div>
-                  <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
-                  <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
-                  <a
-                    href="#contact"
-                    className="mt-6 inline-flex text-sm font-semibold text-ink underline decoration-gold/40 underline-offset-4 transition group-hover:decoration-gold"
+              {articles.map((article) => {
+                return (
+                  <button
+                    key={article.slug}
+                    type="button"
+                    onClick={() => handleArticleOpen(article)}
+                    className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:shadow-soft"
                   >
+                    <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
+                      <span>{article.category}</span>
+                      <span className="text-stone">{article.readTime}</span>
+                    </div>
+                    <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
+                    <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
+                    <div className="mt-6 flex items-center justify-end gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
+                      <span className="font-semibold text-ink transition group-hover:text-gold">Open article</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 rounded-[2rem] border border-line bg-white/88 p-6 shadow-sm backdrop-blur sm:p-7">
+              <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                <div>
+                  <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Selected article</p>
+                  <h3 className="display-font mt-3 text-3xl font-semibold leading-tight text-ink sm:text-4xl">{selectedArticle.title}</h3>
+                  <p className="mt-4 max-w-2xl text-base leading-7 text-stone">{selectedArticle.detail}</p>
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    {selectedArticle.highlights.map((highlight) => (
+                      <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
+                        {highlight}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-gold/15 bg-[linear-gradient(160deg,rgba(182,141,64,0.08),rgba(255,255,255,0.88))] p-5 shadow-sm">
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-semibold">Reader analytics</p>
+                  <p className="display-font mt-3 text-4xl font-semibold text-gold">Backend pending</p>
+                  <p className="mt-3 text-sm leading-6 text-stone">
+                    Reader stats are intentionally hidden until your backend endpoint is connected, so the section never shows fake numbers.
+                  </p>
+                  <div className="mt-5 space-y-2 text-xs uppercase tracking-[0.18em] text-stone">
+                    <p>{selectedArticle.category}</p>
+                    <p>{selectedArticle.readTime}</p>
+                  </div>
+                  <a href="#contact" className="mt-6 inline-flex rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition hover:bg-ink/90">
                     Ask for the full article
                   </a>
-                </article>
-              ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -336,7 +467,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="pb-12">
+        <section id="services" className="pb-12">
           <div className="fade-in mb-6" data-delay="1">
             <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Practice areas</p>
             <h3 className="display-font mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">
@@ -388,28 +519,96 @@ export default function Home() {
                 <p className="text-xs uppercase tracking-[0.22em] text-paper/70">Contact</p>
                 <h3 className="display-font mt-3 text-2xl text-paper sm:text-3xl">Start a legal conversation</h3>
                 <p className="mt-3 text-sm leading-6 text-paper/75">
-                  Available for consultations, retainer engagements, and strategic partnerships.
+                  Available for consultations, retainer engagements, and strategic partnerships. Call or WhatsApp directly, or send a structured inquiry below.
                 </p>
 
-                <div className="mt-6 grid gap-3">
-                  <a href="mailto:njerik103@gmail.com" className="group flex flex-col items-start gap-2 rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-paper transition hover:border-gold/40 hover:bg-white/10 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="text-xs uppercase tracking-[0.18em] text-paper/70">Email</span>
-                    <span className="text-sm font-semibold text-gold transition group-hover:text-gold/85 break-all sm:break-normal sm:text-right">njerik103@gmail.com</span>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <a href={`tel:${contactPhone}`} className="group flex items-center justify-between gap-3 rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-paper transition hover:border-gold/40 hover:bg-white/10">
+                    <span className="text-xs uppercase tracking-[0.18em] text-paper/70">Call</span>
+                    <span className="text-sm font-semibold text-gold transition group-hover:text-gold/85">{contactPhoneDisplay}</span>
                   </a>
-                  <a href="https://www.linkedin.com/in/njeri-kamau05/?originalSubdomain=ke" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-start gap-2 rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-paper transition hover:border-gold/40 hover:bg-white/10 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="text-xs uppercase tracking-[0.18em] text-paper/70">LinkedIn</span>
-                    <span className="text-sm font-semibold text-gold transition group-hover:text-gold/85">Njeri Kamau</span>
+                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-3 rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-paper transition hover:border-gold/40 hover:bg-white/10">
+                    <span className="text-xs uppercase tracking-[0.18em] text-paper/70">WhatsApp</span>
+                    <span className="text-sm font-semibold text-gold transition group-hover:text-gold/85">Open chat</span>
                   </a>
                 </div>
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <a href="mailto:njerik103@gmail.com" className="w-full rounded-full bg-gold px-5 py-2.5 text-center text-sm font-semibold text-ink transition hover:bg-gold/90 sm:w-auto">
-                    Book consultation
-                  </a>
-                  <a href="#articles" className="w-full rounded-full border border-white/20 px-5 py-2.5 text-center text-sm font-semibold text-paper transition hover:border-white/35 hover:bg-white/10 sm:w-auto">
-                    Review insights
-                  </a>
-                </div>
+                <form className="mt-6 grid gap-4" onSubmit={handleContactSubmit}>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
+                      Name
+                      <input
+                        autoComplete="name"
+                        value={contactForm.name}
+                        onChange={(event) => setContactForm((current) => ({ ...current, name: event.target.value }))}
+                        required
+                        placeholder="Your full name"
+                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                      />
+                    </label>
+                    <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
+                      Email
+                      <input
+                        type="email"
+                        autoComplete="email"
+                        value={contactForm.email}
+                        onChange={(event) => setContactForm((current) => ({ ...current, email: event.target.value }))}
+                        required
+                        placeholder="you@example.com"
+                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                      />
+                    </label>
+                    <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
+                      Phone
+                      <input
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
+                        value={contactForm.phone}
+                        onChange={(event) => setContactForm((current) => ({ ...current, phone: event.target.value }))}
+                        required
+                        placeholder="+254 700 000 000"
+                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                      />
+                    </label>
+                    <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
+                      Matter type
+                      <select
+                        value={contactForm.matterType}
+                        onChange={(event) => setContactForm((current) => ({ ...current, matterType: event.target.value }))}
+                        required
+                        className="rounded-xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                      >
+                        <option value="" className="text-ink">Select matter type</option>
+                        {matterTypeOptions.map((option) => (
+                          <option key={option} value={option} className="text-ink">
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                  <label className="grid gap-2 text-xs uppercase tracking-[0.18em] text-paper/70">
+                    Brief description
+                    <textarea
+                      value={contactForm.description}
+                      onChange={(event) => setContactForm((current) => ({ ...current, description: event.target.value }))}
+                      required
+                      rows={4}
+                      placeholder="Share the issue, timeline, and any documents already available."
+                      className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3 text-base text-paper placeholder:text-paper/40 outline-none transition focus:border-gold/40 focus:bg-white/10 sm:text-sm"
+                    />
+                  </label>
+
+                  <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <button type="submit" className="w-full rounded-full bg-gold px-5 py-2.5 text-center text-sm font-semibold text-ink transition hover:bg-gold/90 sm:w-auto">
+                      Send inquiry
+                    </button>
+                    <a href="#articles" className="w-full rounded-full border border-white/20 px-5 py-2.5 text-center text-sm font-semibold text-paper transition hover:border-white/35 hover:bg-white/10 sm:w-auto">
+                      Review insights
+                    </a>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

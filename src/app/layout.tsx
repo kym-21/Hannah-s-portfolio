@@ -13,7 +13,7 @@ const displayFont = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'Hannah | Legal Portfolio',
+  title: 'Hannah Law | Legal Portfolio',
   description:
     'A modern legal portfolio for a law graduate with court exposure and practical experience in the legal sector.',
 };
