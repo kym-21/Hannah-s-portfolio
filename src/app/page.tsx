@@ -634,24 +634,24 @@ export default function Home() {
           </div>
         </section>
 
-        {openArticle && (
-          <div className="fixed inset-0 z-50 flex flex-col bg-ink/40 backdrop-blur-sm animate-fade-in">
-            <div className="w-full flex-1 rounded-b-[2.5rem] border-b border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
-              <div className="article-modal-content relative h-full overflow-y-auto">
-                {/* Close button */}
-                <button
-                  type="button"
-                  onClick={handleArticleClose}
-                  className="sticky top-6 right-6 float-right z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-white/95 transition hover:border-ink/20 hover:bg-white shadow-lg"
-                  aria-label="Close article"
-                >
-                  <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+      </div>
 
-                {/* Article content */}
-                <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10 sm:py-16 lg:px-12">
+      {openArticle && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-ink/40 backdrop-blur-sm animate-fade-in">
+          <button
+            type="button"
+            onClick={handleArticleClose}
+            className="absolute right-5 top-5 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white/95 transition hover:border-ink/20 hover:bg-white shadow-lg"
+            aria-label="Close article"
+          >
+            <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div className="w-full flex-1 rounded-b-[2.5rem] border-b border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
+            <div className="article-modal-content relative h-full overflow-y-auto">
+              <div className="mx-auto max-w-3xl px-6 pb-12 pt-24 sm:px-10 sm:pb-16 sm:pt-24 lg:px-12">
                   <div>
                     <div className="flex items-center gap-3 mb-6">
                       <span className="text-[0.65rem] uppercase tracking-[0.28em] text-gold font-semibold">{openArticle.category}</span>
@@ -701,13 +701,11 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>
-        )}
-
-      </div>
+        </div>
+      )}
     </main>
   );
 }
