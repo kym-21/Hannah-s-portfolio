@@ -376,26 +376,69 @@ export default function Home() {
                     <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
                     <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
 
-                    <div className="cd-modal-action mt-6">
-                      <button
-                        type="button"
-                        onClick={() => handleArticleOpen(article)}
-                        className={`btn ${isOpen ? 'to-circle' : ''}`}
-                        data-type="modal-trigger"
-                      >
-                        Open article
-                      </button>
-                      <span className={`cd-modal-bg ${isOpen ? 'is-visible' : ''}`} aria-hidden="true" />
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleArticleOpen(article)}
+                      className="mt-6 inline-flex rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white shadow-sm hover:shadow-md"
+                    >
+                      Read article
+                    </button>
 
                     <div className="mt-4 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
-                      <span>Modern article preview</span>
-                      <span className="font-semibold text-ink transition group-hover:text-gold">Open article</span>
+                      <span>Article preview</span>
+                      <span className="font-semibold text-ink transition group-hover:text-gold">Read more</span>
                     </div>
                   </article>
                 );
               })}
             </div>
+
+            {openArticle && (
+              <div className="articles-panel mt-8 rounded-[1.75rem] border border-gold/20 bg-gradient-to-br from-gold/5 to-white p-8 shadow-soft">
+                <div className="flex items-center justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Featured article</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleArticleClose}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-ink/10 bg-white transition hover:border-ink/20 hover:bg-white/80"
+                    aria-label="Close article"
+                  >
+                    <svg className="h-4 w-4 text-ink" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <h2 className="display-font text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+                  {openArticle.title}
+                </h2>
+
+                <p className="mt-6 text-base leading-7 text-stone">{openArticle.detail}</p>
+
+                <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                  {openArticle.highlights.map((highlight) => (
+                    <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
+                      {highlight}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a href="#contact" className="inline-flex rounded-full bg-ink px-6 py-2.5 text-sm font-semibold text-paper transition hover:bg-ink/90">
+                    Ask about this topic
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleArticleClose}
+                    className="inline-flex rounded-full border border-ink/15 bg-white/70 px-6 py-2.5 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white"
+                  >
+                    Back to articles
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -627,48 +670,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {openArticle ? (
-          <div className="cd-section modal-is-visible">
-            <div className="cd-modal-action" aria-hidden="true">
-              <span className="btn to-circle">Fire Modal Window</span>
-              <span className="cd-modal-bg is-visible" />
-            </div>
-
-            <div className="cd-modal" role="dialog" aria-modal="true" aria-labelledby="article-modal-title">
-              <div className="cd-modal-content">
-                <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Article preview</p>
-                <h3 id="article-modal-title" className="display-font mt-2 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
-                  {openArticle.title}
-                </h3>
-
-                <p className="mt-4 text-base leading-7 text-stone">{openArticle.detail}</p>
-
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  {openArticle.highlights.map((highlight) => (
-                    <div key={highlight} className="rounded-2xl border border-gold/15 bg-gold/5 px-4 py-4 text-sm font-medium leading-6 text-ink">
-                      {highlight}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 rounded-[1.5rem] border border-line bg-[linear-gradient(180deg,rgba(247,241,231,0.9),rgba(255,255,255,0.95))] p-5 text-left text-ink">
-                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-semibold">Read more</p>
-                  <p className="mt-3 text-sm leading-6 text-stone">
-                    This modal keeps the article interaction focused and modern. Your backend can later replace the preview content with the full article page or remote data.
-                  </p>
-                  <a href="#contact" onClick={handleArticleClose} className="mt-6 inline-flex rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition hover:bg-ink/90">
-                    Ask about this topic
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <button type="button" onClick={handleArticleClose} className="cd-modal-close">
-              Close
-            </button>
-          </div>
-        ) : null}
 
       </div>
     </main>
