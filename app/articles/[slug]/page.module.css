@@ -1,0 +1,85 @@
+.page {
+  padding: 3rem 1.5rem 4rem;
+}
+
+.article {
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #b68d40;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.6rem, 5vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: #111111;
+}
+
+.byline {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgba(17, 17, 17, 0.65);
+}
+
+.content {
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: rgba(17, 17, 17, 0.78);
+}
+
+.paragraph {
+  margin: 0 0 1.25rem;
+}
+
+.heading {
+  margin: 2rem 0 1rem;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #111111;
+}
+
+.quote {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.15rem 1.1rem 1.25rem;
+  border-left: 4px solid #b68d40;
+  border-radius: 0 1rem 1rem 0;
+  background: rgba(182, 141, 64, 0.08);
+  color: #3d2f12;
+}
+
+.quote p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .content {
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+}
