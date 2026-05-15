@@ -521,13 +521,6 @@ export default function Home() {
             </p>
             <p className="slide-up mt-6 max-w-md text-lg leading-7 text-stone sm:text-xl" data-delay="2">
               Kenyan lawyer focused on property and commercial law — experienced in conveyancing, contract drafting, and title transfers.
-              <button
-                type="button"
-                onClick={handleAboutOpen}
-                className="ml-3 inline-flex items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-sm font-semibold text-paper transition hover:bg-ink/90 shadow-sm"
-              >
-                About me
-              </button>
             </p>
             <div className="slide-up mt-10 flex flex-wrap gap-3" data-delay="3">
               <a
