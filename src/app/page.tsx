@@ -566,22 +566,24 @@ export default function Home() {
 
                 return (
                   <article key={article.slug} className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft">
-                    <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
-                      <span>{article.category}</span>
-                      <span className="text-stone">{article.readTime}</span>
+                    <div className="card-body">
+                      <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
+                        <span>{article.category}</span>
+                        <span className="text-stone">{article.readTime}</span>
+                      </div>
+                      <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
+                      <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
+
+                      <button
+                        type="button"
+                        onClick={() => handleArticleOpen(article)}
+                        className="mt-6 inline-flex rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white shadow-sm hover:shadow-md"
+                      >
+                        Read article
+                      </button>
                     </div>
-                    <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
-                    <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
 
-                    <button
-                      type="button"
-                      onClick={() => handleArticleOpen(article)}
-                      className="mt-6 inline-flex rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white shadow-sm hover:shadow-md"
-                    >
-                      Read article
-                    </button>
-
-                    <div className="mt-4 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
+                    <div className="card-footer mt-4 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
                       <span>Article preview</span>
                       <span className="font-semibold text-ink transition group-hover:text-gold">Read more</span>
                     </div>

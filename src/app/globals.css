@@ -287,6 +287,36 @@ body {
   }
 }
 
+/* Equal-height article cards and content styling */
+.article-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 20rem;
+}
+.article-card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1 1 auto;
+}
+.article-card .card-footer {
+  margin-top: 0.75rem;
+  flex-shrink: 0;
+}
+.article-card button {
+  margin-top: 0.5rem;
+}
+
+/* Article content (rendered from detail) */
+.article-content p {
+  margin: 0 0 1.25rem 0;
+  color: #4b4b4b;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.article-content p:last-child { margin-bottom: 0; }
+
 @keyframes slideFromLeft {
   from {
     opacity: 0;

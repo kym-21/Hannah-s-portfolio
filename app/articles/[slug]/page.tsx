@@ -20,7 +20,7 @@ export default function ArticlePage({ params }: Props) {
 
   const bodyHtml = paragraphs.map((paragraph) => `<p>${paragraph.replace(/\n/g, ' ')}</p>`).join('');
 
-  const html = `<article class="mx-auto max-w-3xl px-6 py-10"><header><h1 class="display-font text-4xl font-semibold mb-4">${article.title}</h1><p class="text-sm text-stone mb-6">${article.category || ''} · ${article.readTime || ''}</p></header><div class="prose">${bodyHtml}</div></article>`;
+  const html = `<article class="mx-auto max-w-3xl px-6 py-10"><header><h1 class="display-font text-4xl font-semibold mb-4">${article.title}</h1><p class="text-sm text-stone mb-6">${article.category || ''} · ${article.readTime || ''}</p></header><div class="prose article-content">${bodyHtml}</div></article>`;
 
   return (
     <main>
