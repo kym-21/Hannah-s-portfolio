@@ -637,18 +637,17 @@ export default function Home() {
                       <button
                         type="button"
                         onClick={() => handleArticleOpen(article)}
-                        className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold/85 px-6 py-3 text-sm font-bold text-ink shadow-md transition hover:shadow-lg hover:from-gold/95 hover:to-gold/90 active:scale-95"
+                        className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold/85 px-6 py-2.5 text-sm font-bold text-ink shadow-md transition hover:shadow-lg hover:from-gold/95 hover:to-gold/90 active:scale-95"
                       >
-                        <span>Read article</span>
-                        <svg className="h-4 w-4 transition group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <span>Read</span>
+                        <svg className="h-3.5 w-3.5 transition group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </button>
                     </div>
 
-                    <div className="card-footer mt-5 flex items-center justify-between gap-3 border-t border-line/40 pt-4 text-xs uppercase tracking-[0.24em] text-stone/50 font-medium">
-                      <span>Read full article</span>
-                      <span className="text-gold/70 transition group-hover:text-gold group-hover:translate-x-0.5">→</span>
+                    <div className="card-footer mt-4 pt-3 border-t border-line/40 text-xs text-stone/60 font-medium">
+                      <span className="text-gold/80 transition group-hover:text-gold group-hover:translate-x-0.5">Explore →</span>
                     </div>
                   </article>
                 );
