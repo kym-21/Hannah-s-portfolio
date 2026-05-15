@@ -384,6 +384,68 @@ export default function Home() {
     window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
+  const parseArticleDetail = (detail: string, title: string) => {
+    const blocks = detail
+      .replace(/\r/g, '')
+      .trim()
+      .split(/\n\s*\n+/)
+      .map((block) => block.trim())
+      .filter(Boolean);
+
+    const contentBlocks = blocks.filter(
+      (block) =>
+        block !== title &&
+        !block.startsWith(`${title} `) &&
+        !/^By\s|^May\s\d{4}|^June\s\d{4}|^July\s\d{4}|^August\s\d{4}|^September\s\d{4}|^October\s\d{4}|^November\s\d{4}|^December\s\d{4}|^January\s\d{4}|^February\s\d{4}|^March\s\d{4}|^April\s\d{4}/i.test(block)
+    );
+
+    return contentBlocks.map((block) => {
+      if (/^[💡⚠️]/.test(block)) {
+        return { kind: 'quote' as const, text: block.replace(/\s+/g, ' ').trim() };
+      }
+
+      if (!/[.!?]$/.test(block) && block.split(/\s+/).length <= 8) {
+        return { kind: 'heading' as const, text: block.replace(/\s+/g, ' ').trim() };
+      }
+
+      return {
+        kind: 'paragraph' as const,
+        text: block
+          .replace(/\n/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim(),
+      };
+    });
+  };
+
+  const renderArticleBlocks = (detail: string, title: string) =>
+    parseArticleDetail(detail, title).map((block, index) => {
+      if (block.kind === 'heading') {
+        return (
+          <h2 key={`${title}-${block.text}-${index}`} className="display-font mt-10 text-2xl font-semibold tracking-[-0.03em] text-ink sm:text-3xl">
+            {block.text}
+          </h2>
+        );
+      }
+
+      if (block.kind === 'quote') {
+        return (
+          <blockquote
+            key={`${title}-${block.text}-${index}`}
+            className="my-8 rounded-[1.35rem] border-l-4 border-gold bg-gold/8 px-5 py-4 text-base leading-8 text-ink shadow-sm"
+          >
+            <p className="m-0">{block.text}</p>
+          </blockquote>
+        );
+      }
+
+      return (
+        <p key={`${title}-${block.text}-${index}`} className="mb-6 text-[1.05rem] leading-8 text-stone">
+          {block.text}
+        </p>
+      );
+    });
+
   return (
     <main id="top" className="relative">
       <div className="viewport-zoom mx-auto flex w-full max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
@@ -519,11 +581,9 @@ export default function Home() {
         <section id="articles" className="pt-0 pb-6">
           <div className="mb-4 flex items-end justify-between gap-6 border-b border-line pb-3">
             <div className="fade-in" data-delay="1">
-              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Insights & expertise</p>+
+              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone">Insights & expertise</p>
               <h2 className="display-font mt-3 text-4xl font-semibold tracking-[-0.03em] text-ink sm:text-5xl">
-                Articl
-                
-                king.
+                Articles
               </h2>
             </div>
             <div className="fade-in flex flex-col items-end justify-end gap-2" data-delay="2">
@@ -851,41 +911,38 @@ export default function Home() {
                       {openArticle.title}
                     </h1>
 
-                    <div className="prose prose-lg max-w-none">
-                      <p className="text-lg leading-8 text-stone mb-8">
-                        {openArticle.detail}
-                      </p>
+                    <div className="mx-auto max-w-3xl pt-2">
+                      <div className="mx-auto max-w-2xl">
+                        {renderArticleBlocks(openArticle.detail, openArticle.title)}
 
-                      <div className="my-12">
-                        <h2 className="display-font text-2xl font-semibold text-ink mb-6">Key points</h2>
-                        <div className="grid gap-4 sm:grid-cols-3">
+                        <div className="my-12 grid gap-4 sm:grid-cols-3">
                           {openArticle.highlights.map((highlight) => (
-                            <div key={highlight} className="rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 to-white px-6 py-6">
+                            <div key={highlight} className="rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 to-white px-6 py-6 shadow-sm">
                               <p className="text-base font-medium leading-7 text-ink">{highlight}</p>
                             </div>
                           ))}
                         </div>
-                      </div>
 
-                      <div className="border-t border-line pt-12 pb-8">
-                        <h2 className="display-font text-2xl font-semibold text-ink mb-6">Next steps</h2>
-                        <p className="text-base leading-7 text-stone mb-8">
-                          Have questions about this topic or need tailored legal guidance? Reach out to discuss how these principles apply to your situation.
-                        </p>
-                        <div className="flex flex-wrap gap-4">
-                          <a 
-                            href="#contact" 
-                            className="inline-flex rounded-full bg-ink px-8 py-3.5 text-base font-semibold text-paper transition hover:bg-ink/90 shadow-md hover:shadow-lg"
-                          >
-                            Ask about this topic
-                          </a>
-                          <button
-                            type="button"
-                            onClick={handleArticleClose}
-                            className="inline-flex rounded-full border border-ink/20 bg-white px-8 py-3.5 text-base font-semibold text-ink transition hover:border-ink/40 hover:bg-white/80 shadow-md hover:shadow-lg"
-                          >
-                            Back to articles
-                          </button>
+                        <div className="border-t border-line pt-12 pb-8">
+                          <h2 className="display-font text-2xl font-semibold text-ink mb-6">Next steps</h2>
+                          <p className="text-base leading-7 text-stone mb-8">
+                            Have questions about this topic or need tailored legal guidance? Reach out to discuss how these principles apply to your situation.
+                          </p>
+                          <div className="flex flex-wrap gap-4">
+                            <a 
+                              href="#contact" 
+                              className="inline-flex rounded-full bg-ink px-8 py-3.5 text-base font-semibold text-paper transition hover:bg-ink/90 shadow-md hover:shadow-lg"
+                            >
+                              Ask about this topic
+                            </a>
+                            <button
+                              type="button"
+                              onClick={handleArticleClose}
+                              className="inline-flex rounded-full border border-ink/20 bg-white px-8 py-3.5 text-base font-semibold text-ink transition hover:border-ink/40 hover:bg-white/80 shadow-md hover:shadow-lg"
+                            >
+                              Back to articles
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
