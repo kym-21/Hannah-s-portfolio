@@ -422,7 +422,7 @@ export default function Home() {
     parseArticleDetail(detail, title).map((block, index) => {
       if (block.kind === 'heading') {
         return (
-          <h2 key={`${title}-${block.text}-${index}`} className="display-font mt-10 text-2xl font-semibold tracking-[-0.03em] text-ink sm:text-3xl">
+          <h2 key={`${title}-${block.text}-${index}`} className="display-font mt-12 mb-6 text-2xl sm:text-3xl font-bold tracking-[-0.03em] text-ink border-t border-line/40 pt-8">
             {block.text}
           </h2>
         );
@@ -432,7 +432,7 @@ export default function Home() {
         return (
           <blockquote
             key={`${title}-${block.text}-${index}`}
-            className="my-8 rounded-[1.35rem] border-l-4 border-gold bg-gold/8 px-5 py-4 text-base leading-8 text-ink shadow-sm"
+            className="my-10 rounded-2xl border-l-5 border-gold bg-gradient-to-r from-gold/12 to-gold/6 px-6 py-5 text-base leading-8 text-ink shadow-sm font-medium"
           >
             <p className="m-0">{block.text}</p>
           </blockquote>
@@ -440,7 +440,7 @@ export default function Home() {
       }
 
       return (
-        <p key={`${title}-${block.text}-${index}`} className="mb-6 text-[1.05rem] leading-8 text-stone">
+        <p key={`${title}-${block.text}-${index}`} className="mb-7 text-[1.08rem] leading-8 text-stone/85 letter-spacing-0.5">
           {block.text}
         </p>
       );
@@ -625,27 +625,30 @@ export default function Home() {
                 const isOpen = openArticleSlug === article.slug;
 
                 return (
-                  <article key={article.slug} className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft">
+                  <article key={article.slug} className="article-card group rounded-[2rem] border border-line/50 bg-white/90 backdrop-blur p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-gold/40 hover:bg-white">
                     <div className="card-body">
-                      <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
-                        <span>{article.category}</span>
-                        <span className="text-stone">{article.readTime}</span>
+                      <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.26em] font-semibold">
+                        <span className="rounded-full bg-gold/12 px-3 py-1.5 text-gold">{article.category}</span>
+                        <span className="text-stone/60">{article.readTime}</span>
                       </div>
-                      <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
-                      <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
+                      <h3 className="display-font mt-5 text-3xl font-bold leading-snug tracking-[-0.02em] text-ink">{article.title}</h3>
+                      <p className="mt-4 text-[0.95rem] leading-7 text-stone/80">{article.summary}</p>
 
                       <button
                         type="button"
                         onClick={() => handleArticleOpen(article)}
-                        className="mt-6 inline-flex rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white shadow-sm hover:shadow-md"
+                        className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold/85 px-6 py-3 text-sm font-bold text-ink shadow-md transition hover:shadow-lg hover:from-gold/95 hover:to-gold/90 active:scale-95"
                       >
-                        Read article
+                        <span>Read article</span>
+                        <svg className="h-4 w-4 transition group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
                       </button>
                     </div>
 
-                    <div className="card-footer mt-4 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
-                      <span>Article preview</span>
-                      <span className="font-semibold text-ink transition group-hover:text-gold">Read more</span>
+                    <div className="card-footer mt-5 flex items-center justify-between gap-3 border-t border-line/40 pt-4 text-xs uppercase tracking-[0.24em] text-stone/50 font-medium">
+                      <span>Read full article</span>
+                      <span className="text-gold/70 transition group-hover:text-gold group-hover:translate-x-0.5">→</span>
                     </div>
                   </article>
                 );
