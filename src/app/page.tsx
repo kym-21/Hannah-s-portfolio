@@ -551,7 +551,7 @@ export default function Home() {
             <div className="rounded-[2rem] border border-line bg-white/95 p-8 shadow-lg backdrop-blur-xl border-l-4 border-l-gold">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  
+                  <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Njeri</h2>
                   <p className="mt-3 max-w-md text-base leading-7 text-stone">
                     Kenyan lawyer focused on property and commercial law, with a growing research interest in legal technology, human rights, and access to justice.
                   </p>
