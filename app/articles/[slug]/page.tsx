@@ -9,6 +9,7 @@ type ArticleBlock =
   | { kind: 'quote'; text: string };
 
 const metaPattern = /^(By\s|May\s\d{4}|June\s\d{4}|July\s\d{4}|August\s\d{4}|September\s\d{4}|October\s\d{4}|November\s\d{4}|December\s\d{4}|January\s\d{4}|February\s\d{4}|March\s\d{4}|April\s\d{4})/i;
+const headingPattern = /^(what is|what are|what to|step\s\d+|\d+\.|a final word|the bottom line|off-plan purchases|financing your|service charges and levies|completion documents|completion date|payment terms|what to check before buying|finalizing the transfer|due diligence|trust signals|client focus|client guidance|professional experience|practice areas)$/i;
 
 function normalizeParagraph(text: string) {
   return text.replace(/\s+/g, ' ').trim();
@@ -20,20 +21,70 @@ function isHeadingBlock(text: string) {
 }
 
 function toBlocks(detail: string, title: string): ArticleBlock[] {
-  const rawBlocks = detail.replace(/\r/g, '').trim().split(/\n\s*\n+/).map((block) => block.trim()).filter(Boolean);
-  const blocks = rawBlocks.filter((block) => block !== title && !block.startsWith(`${title} `) && !metaPattern.test(block));
+  const lines = detail.replace(/\r/g, '').split('\n');
+  const blocks: ArticleBlock[] = [];
+  let buffer: string[] = [];
 
-  return blocks.map((block) => {
-    if (/^[💡⚠️]/.test(block)) {
-      return { kind: 'quote', text: normalizeParagraph(block) };
+  const flushParagraph = () => {
+    const text = normalizeParagraph(buffer.join(' '));
+    buffer = [];
+
+    if (!text) {
+      return;
     }
 
-    if (isHeadingBlock(block)) {
-      return { kind: 'heading', text: normalizeParagraph(block) };
+    if (text === title || text.startsWith(`${title} `) || metaPattern.test(text)) {
+      return;
     }
 
-    return { kind: 'paragraph', text: normalizeParagraph(block) };
-  });
+    if (/^[💡⚠️]/.test(text)) {
+      blocks.push({ kind: 'quote', text });
+      return;
+    }
+
+    if (headingPattern.test(text.toLowerCase()) || isHeadingBlock(text)) {
+      blocks.push({ kind: 'heading', text });
+      return;
+    }
+
+    blocks.push({ kind: 'paragraph', text });
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushParagraph();
+      continue;
+    }
+
+    if (
+      trimmed === title ||
+      trimmed.startsWith(`${title} `) ||
+      metaPattern.test(trimmed)
+    ) {
+      flushParagraph();
+      continue;
+    }
+
+    if (/^[💡⚠️]/.test(trimmed)) {
+      flushParagraph();
+      blocks.push({ kind: 'quote', text: normalizeParagraph(trimmed) });
+      continue;
+    }
+
+    if (headingPattern.test(trimmed.toLowerCase())) {
+      flushParagraph();
+      blocks.push({ kind: 'heading', text: normalizeParagraph(trimmed) });
+      continue;
+    }
+
+    buffer.push(trimmed);
+  }
+
+  flushParagraph();
+
+  return blocks;
 }
 
 export default function ArticlePage({ params }: Props) {
