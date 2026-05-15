@@ -329,12 +329,13 @@ const defaultContactForm: ContactFormState = {
 
 export default function Home() {
   const [openArticleSlug, setOpenArticleSlug] = useState<string | null>(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [contactForm, setContactForm] = useState<ContactFormState>(defaultContactForm);
 
   const openArticle = articles.find((article) => article.slug === openArticleSlug) ?? null;
 
   useEffect(() => {
-    document.body.classList.toggle('overflow-hidden', Boolean(openArticle));
+    document.body.classList.toggle('overflow-hidden', Boolean(openArticle || aboutOpen));
 
     if (openArticle) {
       // Scroll modal to top when article opens
@@ -346,9 +347,19 @@ export default function Home() {
       }, 0);
     }
 
+    if (aboutOpen) {
+      setTimeout(() => {
+        const modalContent = document.querySelector('.about-modal-content');
+        if (modalContent) {
+          modalContent.scrollTop = 0;
+        }
+      }, 0);
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenArticleSlug(null);
+        setAboutOpen(false);
       }
     };
 
@@ -358,7 +369,7 @@ export default function Home() {
       document.body.classList.remove('overflow-hidden');
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [openArticle]);
+  }, [openArticle, aboutOpen]);
 
   const handleArticleOpen = (article: Article) => {
     setOpenArticleSlug(article.slug);
@@ -366,6 +377,14 @@ export default function Home() {
 
   const handleArticleClose = () => {
     setOpenArticleSlug(null);
+  };
+
+  const handleAboutOpen = () => {
+    setAboutOpen(true);
+  };
+
+  const handleAboutClose = () => {
+    setAboutOpen(false);
   };
 
   const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -554,8 +573,10 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">Profile</p>
-                    <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Kamau</h2>
-                    <p className="mt-3 text-base font-semibold text-gold">Lawyer. Researcher. Builder of bridges between law, technology, and justice.</p>
+                  <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Kamau</h2>
+                  <p className="mt-3 max-w-md text-base leading-7 text-stone">
+                    Kenyan lawyer focused on property and commercial law, with a growing research interest in legal technology, human rights, and access to justice.
+                  </p>
                 </div>
                 <div className="rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/20 to-transparent backdrop-blur px-4 py-3 text-right shadow-sm">
                   <p className="text-xs uppercase tracking-[0.24em] text-gold font-bold">Based in</p>
@@ -565,26 +586,40 @@ export default function Home() {
 
               <div className="mt-8 grid gap-3">
                 <div className="rounded-xl bg-gradient-to-br from-paper/60 to-paper/40 backdrop-blur p-4 border border-line/30">
-                    <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Property & commercial law</p>
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Property & commercial law</p>
                   <p className="mt-2 text-sm leading-6 text-ink font-medium">
-                      Conveyancing, contracts, real estate transactions, and commercial legal practice in Kenya.
+                    Conveyancing, contracts, and practical support for real estate transactions.
                   </p>
                 </div>
                 <div className="rounded-xl bg-gradient-to-br from-paper/60 to-paper/40 backdrop-blur p-4 border border-line/30">
-                    <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Legal technology & AI</p>
-                    <p className="mt-2 text-sm leading-6 text-ink font-medium">How artificial intelligence is reshaping legal practice, and what African legal frameworks need to do about it.</p>
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Legal technology & AI</p>
+                  <p className="mt-2 text-sm leading-6 text-ink font-medium">Research on how emerging technologies are reshaping legal practice in Africa.</p>
                 </div>
                 <div className="rounded-xl bg-gradient-to-br from-paper/60 to-paper/40 backdrop-blur p-4 border border-line/30">
-                    <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Human rights & access to justice</p>
-                    <p className="mt-2 text-sm leading-6 text-ink font-medium">Gender equality, land rights, and building legal systems that work for everyone - not just those who can afford them.</p>
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Human rights & access to justice</p>
+                  <p className="mt-2 text-sm leading-6 text-ink font-medium">Work that keeps gender equality, land rights, and fair legal access in view.</p>
                 </div>
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleAboutOpen}
+                  className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition hover:bg-ink/90 shadow-sm hover:shadow-md"
+                >
+                  About me
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </button>
+                <p className="text-sm text-stone">A short profile, with the fuller story in the pop-up.</p>
               </div>
 
               <div className="mt-8 grid gap-2 sm:grid-cols-3">
                 {[
-                    ['LLB', 'Mount Kenya University'],
-                    ['Nairobi', 'Kenya'],
-                    ['Research', 'and drafting'],
+                  ['LLB', 'Mount Kenya University'],
+                  ['Nairobi', 'Kenya'],
+                  ['Research', 'and drafting'],
                 ].map(([value, label]) => (
                   <div key={label} className="rounded-xl border border-gold/20 bg-gradient-to-br from-gold/10 to-transparent backdrop-blur px-4 py-4 text-center shadow-sm hover:shadow-md transition">
                     <p className="display-font text-3xl font-bold text-gold">{value}</p>
@@ -969,6 +1004,90 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {aboutOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-ink/40 backdrop-blur-sm animate-fade-in">
+          <button
+            type="button"
+            onClick={handleAboutClose}
+            className="absolute right-5 top-5 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white/95 shadow-lg transition hover:border-ink/20 hover:bg-white"
+            aria-label="Close about me"
+          >
+            <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div className="w-full flex-1 rounded-b-[2.5rem] border-b border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
+            <div className="about-modal-content relative h-full overflow-y-auto">
+              <div className="mx-auto max-w-3xl px-6 pb-12 pt-24 sm:px-10 sm:pb-16 sm:pt-24 lg:px-12">
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="text-[0.65rem] uppercase tracking-[0.28em] text-gold font-semibold">About me</span>
+                    <span className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">Profile</span>
+                  </div>
+
+                  <h1 className="display-font text-5xl sm:text-6xl font-semibold leading-tight tracking-[-0.03em] text-ink mb-8">
+                    Hannah Kamau
+                  </h1>
+
+                  <div className="mx-auto max-w-2xl pt-2">
+                    <div className="space-y-6 text-lg leading-8 text-stone">
+                      <p className="display-font text-2xl italic text-ink">
+                        Lawyer. Researcher. Builder of bridges between law, technology, and justice.
+                      </p>
+                      <p>
+                        I am a Kenyan lawyer with a Bachelor of Laws (LLB) from Mount Kenya University, currently working in conveyancing and property transactions at AMCCO Properties Ltd in Nairobi. My day-to-day is grounded in the precision of real estate law — drafting contracts, navigating title transfers, and ensuring that every transaction holds up to scrutiny.
+                      </p>
+                      <p>
+                        But I have always believed that the law is most powerful when it reaches beyond the transaction. I write and research at the intersection of property law, human rights, artificial intelligence, and emerging financial technology — not because these areas are fashionable, but because I think they are where the most important questions about justice, access, and the future of African societies are being asked.
+                      </p>
+                      <p>
+                        I am drawn to complexity. I find the same rigour I apply to a conveyancing deed useful when analysing a government AI policy, and the same care I put into a legal memo useful when writing about women&apos;s land rights. I believe lawyers who understand technology and technologists who understand law are among the most urgently needed people of this generation — and I am working, deliberately, to be both.
+                      </p>
+                    </div>
+
+                    <div className="my-12 grid gap-4 sm:grid-cols-3">
+                      {[
+                        ['Property & commercial law', 'Conveyancing, contracts, and practical support for real estate transactions.'],
+                        ['Legal technology & AI', 'Research on how emerging technologies are reshaping legal practice in Africa.'],
+                        ['Human rights & access to justice', 'Work that keeps gender equality, land rights, and fair legal access in view.'],
+                      ].map(([title, text]) => (
+                        <div key={title} className="rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 to-white px-6 py-6 shadow-sm">
+                          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">{title}</p>
+                          <p className="mt-3 text-base leading-7 text-ink">{text}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="border-t border-line pt-12 pb-8">
+                      <h2 className="display-font text-2xl font-semibold text-ink mb-6">Next steps</h2>
+                      <p className="text-base leading-7 text-stone mb-8">
+                        Explore the articles section to read more about the work I publish around property law, legal technology, and access to justice.
+                      </p>
+                      <div className="flex flex-wrap gap-4">
+                        <a
+                          href="#articles"
+                          className="inline-flex rounded-full bg-ink px-8 py-3.5 text-base font-semibold text-paper shadow-md transition hover:bg-ink/90 hover:shadow-lg"
+                        >
+                          View articles
+                        </a>
+                        <button
+                          type="button"
+                          onClick={handleAboutClose}
+                          className="inline-flex rounded-full border border-ink/20 bg-white px-8 py-3.5 text-base font-semibold text-ink shadow-md transition hover:border-ink/40 hover:bg-white/80 hover:shadow-lg"
+                        >
+                          Back to profile
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
