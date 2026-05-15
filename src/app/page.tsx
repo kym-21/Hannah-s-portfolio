@@ -1,16 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from 'react';
-
-type Article = {
-  slug: string;
-  title: string;
-  category: string;
-  summary: string;
-  readTime: string;
-  detail: string;
-  highlights: string[];
-};
+import { articles, type Article } from '@/content/articles';
 
 type ContactFormState = {
   name: string;
@@ -48,42 +39,6 @@ const services = [
   'Legal research & written advocacy',
   'Compliance & regulatory guidance',
   'Litigation support & case management',
-];
-
-const articles: Article[] = [
-  {
-    slug: 'property-sale-agreement-checklist',
-    title: 'What to check before signing a property sale agreement',
-    category: 'Property Law',
-    summary:
-      'A practical legal checklist covering title review, contractual red flags, and the due diligence steps that protect buyers and sellers.',
-    readTime: '4 min read',
-    detail:
-      'The strongest property agreements are built on careful checks before the parties commit. Title verification, ownership history, encumbrances, completion timelines, and payment safeguards all matter before signatures go on the page.',
-    highlights: ['Title checks before signing', 'Flags hidden contract risk', 'Protects both buyer and seller'],
-  },
-  {
-    slug: 'why-due-diligence-matters',
-    title: 'Why due diligence matters in real estate transactions',
-    category: 'Transactions',
-    summary:
-      'An article-style overview of the legal and commercial risks that surface when conveyancing is rushed or poorly documented.',
-    readTime: '5 min read',
-    detail:
-      'Due diligence slows the deal down just enough to stop expensive mistakes. It helps confirm the land status, validates the parties, and makes sure the legal steps match the commercial promise.',
-    highlights: ['Confirms land status', 'Reduces transaction risk', 'Supports clean completion'],
-  },
-  {
-    slug: 'building-trust-in-practice',
-    title: 'How a young lawyer builds trust in a professional practice',
-    category: 'Career Notes',
-    summary:
-      'A reflection on communication, responsiveness, and professional discipline in the early stages of legal practice.',
-    readTime: '3 min read',
-    detail:
-      'Trust grows when legal work is clear, timely, and well explained. Responsiveness, proper follow-up, and calm judgment matter just as much as the technical answer behind the advice.',
-    highlights: ['Clear and timely communication', 'Calm professional judgment', 'Follow-through builds trust'],
-  },
 ];
 
 const timeline = [
@@ -147,12 +102,13 @@ export default function Home() {
   const [contactForm, setContactForm] = useState<ContactFormState>(defaultContactForm);
 
   const openArticle = articles.find((article) => article.slug === openArticleSlug) ?? null;
+  const openArticleParagraphs = openArticle ? openArticle.detail.split('\n\n').filter(Boolean) : [];
 
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', Boolean(openArticle));
 
     if (openArticle) {
-      // Scroll modal to top when article opens
+      
       setTimeout(() => {
         const modalContent = document.querySelector('.article-modal-content');
         if (modalContent) {
@@ -378,25 +334,33 @@ export default function Home() {
                 const isOpen = openArticleSlug === article.slug;
 
                 return (
-                  <article key={article.slug} className="article-card group rounded-[1.75rem] border border-line bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-soft">
-                    <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-gold">
-                      <span>{article.category}</span>
-                      <span className="text-stone">{article.readTime}</span>
+                  <article
+                    key={article.slug}
+                    className="article-card group flex h-full min-h-[24rem] flex-col overflow-hidden rounded-[1.75rem] border border-line bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(251,247,240,0.96))] p-6 text-left shadow-[0_18px_55px_rgba(17,17,17,0.08)] transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(17,17,17,0.14)]"
+                  >
+                    <div className="h-1.5 rounded-full bg-[linear-gradient(90deg,rgba(182,141,64,0.95),rgba(182,141,64,0.2))]" aria-hidden="true" />
+
+                    <div className="mt-5 flex items-center justify-between gap-4 text-[0.66rem] uppercase tracking-[0.24em]">
+                      <span className="rounded-full border border-gold/20 bg-gold/10 px-3 py-1 font-semibold text-gold">{article.category}</span>
+                      <span className="rounded-full border border-line bg-white/80 px-3 py-1 font-semibold text-stone">{article.readTime}</span>
                     </div>
-                    <h3 className="display-font mt-4 text-3xl font-semibold leading-tight text-ink">{article.title}</h3>
-                    <p className="mt-4 text-base leading-7 text-stone">{article.summary}</p>
 
-                    <button
-                      type="button"
-                      onClick={() => handleArticleOpen(article)}
-                      className="mt-6 inline-flex rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white shadow-sm hover:shadow-md"
-                    >
-                      Read article
-                    </button>
+                    <h3 className="display-font mt-5 text-[2rem] font-semibold leading-[1.06] tracking-[-0.04em] text-ink sm:text-[2.15rem]">{article.title}</h3>
+                    <p className="mt-4 text-[1.01rem] leading-7 text-stone">{article.summary}</p>
 
-                    <div className="mt-4 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-xs uppercase tracking-[0.18em] text-stone">
-                      <span>Article preview</span>
-                      <span className="font-semibold text-ink transition group-hover:text-gold">Read more</span>
+                    <div className="mt-auto pt-6">
+                      <button
+                        type="button"
+                        onClick={() => handleArticleOpen(article)}
+                        className="inline-flex rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper transition hover:bg-ink/90 shadow-sm hover:shadow-md"
+                      >
+                        Read article
+                      </button>
+
+                      <div className="mt-5 flex items-center justify-between gap-3 border-t border-line/60 pt-4 text-[0.68rem] uppercase tracking-[0.2em] text-stone">
+                        <span>Article preview</span>
+                        <span className="font-semibold text-ink transition group-hover:text-gold">Read more</span>
+                      </div>
                     </div>
                   </article>
                 );
@@ -637,70 +601,110 @@ export default function Home() {
       </div>
 
       {openArticle && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-ink/40 backdrop-blur-sm animate-fade-in">
-          <button
-            type="button"
-            onClick={handleArticleClose}
-            className="absolute right-5 top-5 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white/95 transition hover:border-ink/20 hover:bg-white shadow-lg"
-            aria-label="Close article"
-          >
-            <svg className="h-5 w-5 text-ink" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#111111]/70 backdrop-blur-[10px] animate-fade-in" role="dialog" aria-modal="true" aria-label={openArticle.title}>
+          <div className="relative min-h-full px-3 py-3 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+            <button
+              type="button"
+              onClick={handleArticleClose}
+              className="absolute right-5 top-5 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/95 text-ink shadow-[0_8px_30px_rgba(17,17,17,0.18)] transition hover:-translate-y-0.5 hover:border-gold/30 hover:bg-white"
+              aria-label="Close article"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
 
-          <div className="w-full flex-1 rounded-b-[2.5rem] border-b border-line bg-white shadow-2xl overflow-hidden animate-slide-up">
-            <div className="article-modal-content relative h-full overflow-y-auto">
-              <div className="mx-auto max-w-3xl px-6 pb-12 pt-24 sm:px-10 sm:pb-16 sm:pt-24 lg:px-12">
-                  <div>
-                    <div className="flex items-center gap-3 mb-6">
-                      <span className="text-[0.65rem] uppercase tracking-[0.28em] text-gold font-semibold">{openArticle.category}</span>
-                      <span className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">{openArticle.readTime}</span>
-                    </div>
+            <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,#fffdf8_0%,#f7f1e6_100%)] shadow-[0_30px_120px_rgba(17,17,17,0.28)] animate-slide-up">
+              <div className="border-b border-line/70 px-6 py-6 sm:px-10 lg:px-12">
+                <div className="flex flex-wrap items-center gap-3 text-[0.64rem] uppercase tracking-[0.3em] text-stone">
+                  <span className="rounded-full border border-gold/20 bg-white/85 px-3 py-1 font-semibold text-gold shadow-sm">{openArticle.category}</span>
+                  <span className="rounded-full border border-line bg-white/80 px-3 py-1 font-semibold shadow-sm">{openArticle.readTime}</span>
+                  <span className="rounded-full border border-line bg-white/80 px-3 py-1 font-semibold shadow-sm">Read time</span>
+                </div>
 
-                    <h1 className="display-font text-5xl sm:text-6xl font-semibold leading-tight tracking-[-0.03em] text-ink mb-8">
+                <div className="mt-5 grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+                  <div className="max-w-4xl">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-stone">Article</p>
+                    <h1 className="display-font mt-4 text-4xl font-semibold leading-[1.02] tracking-[-0.05em] text-ink sm:text-5xl lg:text-[4.25rem]">
                       {openArticle.title}
                     </h1>
+                    <p className="mt-5 max-w-3xl text-lg leading-8 text-stone sm:text-xl">
+                      {openArticle.summary}
+                    </p>
+                  </div>
 
-                    <div className="prose prose-lg max-w-none">
-                      <p className="text-lg leading-8 text-stone mb-8">
-                        {openArticle.detail}
-                      </p>
-
-                      <div className="my-12">
-                        <h2 className="display-font text-2xl font-semibold text-ink mb-6">Key points</h2>
-                        <div className="grid gap-4 sm:grid-cols-3">
-                          {openArticle.highlights.map((highlight) => (
-                            <div key={highlight} className="rounded-2xl border border-gold/20 bg-gradient-to-br from-gold/10 to-white px-6 py-6">
-                              <p className="text-base font-medium leading-7 text-ink">{highlight}</p>
-                            </div>
-                          ))}
+                  <div className="rounded-[1.5rem] border border-line bg-white/75 p-5 shadow-sm backdrop-blur">
+                    <p className="text-[0.62rem] uppercase tracking-[0.26em] text-stone font-semibold">Highlights</p>
+                    <div className="mt-4 grid gap-3">
+                      {openArticle.highlights.map((highlight) => (
+                        <div key={highlight} className="rounded-2xl border border-gold/15 bg-[linear-gradient(180deg,rgba(182,141,64,0.11),rgba(255,255,255,0.86))] px-4 py-4 shadow-[0_10px_30px_rgba(17,17,17,0.05)]">
+                          <p className="text-sm font-semibold leading-6 text-ink">{highlight}</p>
                         </div>
-                      </div>
-
-                      <div className="border-t border-line pt-12 pb-8">
-                        <h2 className="display-font text-2xl font-semibold text-ink mb-6">Next steps</h2>
-                        <p className="text-base leading-7 text-stone mb-8">
-                          Have questions about this topic or need tailored legal guidance? Reach out to discuss how these principles apply to your situation.
-                        </p>
-                        <div className="flex flex-wrap gap-4">
-                          <a 
-                            href="#contact" 
-                            className="inline-flex rounded-full bg-ink px-8 py-3.5 text-base font-semibold text-paper transition hover:bg-ink/90 shadow-md hover:shadow-lg"
-                          >
-                            Ask about this topic
-                          </a>
-                          <button
-                            type="button"
-                            onClick={handleArticleClose}
-                            className="inline-flex rounded-full border border-ink/20 bg-white px-8 py-3.5 text-base font-semibold text-ink transition hover:border-ink/40 hover:bg-white/80 shadow-md hover:shadow-lg"
-                          >
-                            Back to articles
-                          </button>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
+                </div>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="#contact"
+                    className="inline-flex rounded-full bg-ink px-5 py-3 text-sm font-semibold text-paper transition hover:bg-ink/90 shadow-sm hover:shadow-md"
+                  >
+                    Ask about this topic
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleArticleClose}
+                    className="inline-flex rounded-full border border-ink/15 bg-white/80 px-5 py-3 text-sm font-semibold text-ink transition hover:border-ink/30 hover:bg-white shadow-sm hover:shadow-md"
+                  >
+                    Back to articles
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid gap-8 px-6 py-8 sm:px-10 lg:grid-cols-[1fr_20rem] lg:px-12 lg:py-10">
+                <article className="article-modal-content min-w-0">
+                  <div className="max-w-3xl space-y-6 text-[1.04rem] leading-8 text-ink sm:text-[1.1rem] sm:leading-9">
+                    {openArticleParagraphs.map((paragraph, index) => (
+                      <p
+                        key={`${openArticle.slug}-${index}`}
+                        className={
+                          index === 0
+                            ? 'text-[1.18rem] font-medium leading-9 text-stone sm:text-[1.24rem] sm:leading-10'
+                            : 'text-ink/90'
+                        }
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </article>
+
+                <aside className="space-y-4 lg:pt-1">
+                  <div className="rounded-[1.5rem] border border-line bg-white/85 p-5 shadow-sm">
+                    <p className="text-[0.62rem] uppercase tracking-[0.26em] text-stone font-semibold">Reading note</p>
+                    <p className="mt-3 text-sm leading-7 text-stone">
+                      Each article is split into its own file so you can edit wording later without touching the rest of the site.
+                    </p>
+                  </div>
+
+                  <div className="rounded-[1.5rem] border border-line bg-white/85 p-5 shadow-sm">
+                    <p className="text-[0.62rem] uppercase tracking-[0.26em] text-stone font-semibold">Next steps</p>
+                    <p className="mt-3 text-sm leading-7 text-stone">
+                      If you want this topic adapted to your matter, open the contact section and mention the article title.
+                    </p>
+                  </div>
+
+                  <div className="rounded-[1.5rem] border border-gold/15 bg-[linear-gradient(180deg,rgba(182,141,64,0.08),rgba(255,255,255,0.92))] p-5 shadow-sm">
+                    <p className="text-[0.62rem] uppercase tracking-[0.26em] text-gold font-semibold">Contact</p>
+                    <a
+                      href="#contact"
+                      className="mt-4 inline-flex rounded-full bg-gold px-5 py-3 text-sm font-semibold text-ink transition hover:bg-gold/90 shadow-sm hover:shadow-md"
+                    >
+                      Open contact form
+                    </a>
+                  </div>
+                </aside>
               </div>
             </div>
           </div>
