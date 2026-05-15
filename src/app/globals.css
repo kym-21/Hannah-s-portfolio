@@ -289,9 +289,9 @@ body {
 
 /* Equal-height article cards and content styling */
 .article-card {
-  display: flex;
-  flex-direction: column;
-  min-height: 20rem;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
 }
 .article-card .card-body {
   display: flex;
@@ -300,7 +300,7 @@ body {
   flex: 1 1 auto;
 }
 .article-card .card-footer {
-  margin-top: 0.75rem;
+  margin-top: auto;
   flex-shrink: 0;
 }
 .article-card button {
