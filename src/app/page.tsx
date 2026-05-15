@@ -510,8 +510,7 @@ export default function Home() {
             <div className="absolute bottom-20 -right-40 w-96 h-96 rounded-full bg-gradient-to-tl from-gold/15 to-transparent blur-3xl" />
           </div>
           <div className="flex flex-col self-start justify-start pt-2 lg:pt-4 lg:pr-8 xl:pr-12">
-            <!-- profile pill removed to keep left column minimal -->
-            <!-- name removed from left column (kept in profile aside) -->
+            
             <p className="display-font slide-up mt-3 max-w-lg text-lg italic leading-8 text-stone sm:text-xl" data-delay="2">
               Lawyer. Researcher. Builder of bridges between law, technology, and justice.
             </p>
@@ -552,7 +551,7 @@ export default function Home() {
             <div className="rounded-[2rem] border border-line bg-white/95 p-8 shadow-lg backdrop-blur-xl border-l-4 border-l-gold">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <!-- removed 'Profile' label and name from aside to declutter left column -->
+                  
                   <p className="mt-3 max-w-md text-base leading-7 text-stone">
                     Kenyan lawyer focused on property and commercial law, with a growing research interest in legal technology, human rights, and access to justice.
                   </p>
