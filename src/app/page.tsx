@@ -61,7 +61,7 @@ const articles: Article[] = [
 
 What you need to know about sectional titles, service charges, and your rights as a unit owner
 
-By Hannah Kamau, LLB  |  Legal Practitioner, AMCCO Properties Ltd
+By Hannah Njeri, LLB  |  Legal Practitioner, AMCCO Properties Ltd
 
 May 2026  |  Real Estate & Conveyancing  |  4 min read
 
@@ -125,7 +125,7 @@ Apartment ownership in Kenya, done right, is a solid investment and a great way 
 
 As with all property purchases, the key is doing your homework — confirming the developer's credibility, reviewing all documentation carefully, and working with a lawyer who understands the sectional property framework. An apartment is a home and an investment. Both deserve proper protection.
 
-Hannah Kamau is a legal practitioner specialising in conveyancing and property transactions at AMCCO Properties Ltd, Nairobi. She writes on property law, legal technology, and access to justice in Kenya and across Africa.
+  Hannah Njeri is a legal practitioner specialising in conveyancing and property transactions at AMCCO Properties Ltd, Nairobi. She writes on property law, legal technology, and access to justice in Kenya and across Africa.
 `,
     highlights: ['Confirm developer approvals and sectional plan', 'Check service charges and clearance certificates', 'Understand Body Corporate rules and shared liabilities'],
   },
@@ -139,7 +139,7 @@ Hannah Kamau is a legal practitioner specialising in conveyancing and property t
 
 A plain-English guide to the process — from finding the plot to holding the title deed
 
-By Hannah Kamau, LLB  |  Legal Practitioner, AMCCO Properties Ltd
+By Hannah Njeri, LLB  |  Legal Practitioner, AMCCO Properties Ltd
 
 May 2026  |  Real Estate & Conveyancing  |  4 min read
 
@@ -189,7 +189,7 @@ A Final Word
 
 Buying land in Kenya does not have to be frightening — but it does require patience, the right professional support, and a commitment to following the process properly. Cutting corners to save time or money almost always costs more in the long run. Work with a reputable lawyer, never pay before you search, and trust the process.
 
-Hannah Kamau is a legal practitioner specialising in conveyancing and property transactions at AMCCO Properties Ltd, Nairobi. She writes on property law, legal technology, and access to justice in Kenya and across Africa.
+  Hannah Njeri is a legal practitioner specialising in conveyancing and property transactions at AMCCO Properties Ltd, Nairobi. She writes on property law, legal technology, and access to justice in Kenya and across Africa.
 `,
     highlights: ['Always conduct a land search', 'Appoint your own lawyer', 'Pay through a lawyer/client account'],
   },
@@ -203,7 +203,7 @@ Hannah Kamau is a legal practitioner specialising in conveyancing and property t
 
 The checks that separate smart buyers from sorry ones
 
-By Hannah Kamau, LLB  |  Legal Practitioner, AMCCO Properties Ltd
+By Hannah Njeri, LLB  |  Legal Practitioner, AMCCO Properties Ltd
 
 May 2026  |  Real Estate & Conveyancing  |  4 min read
 
@@ -265,7 +265,7 @@ Due diligence is not bureaucracy for its own sake. It is the process by which yo
 
 If a seller is pressuring you to move quickly, pay first, or skip the legal checks — that pressure itself is a red flag. Legitimate sellers understand and respect the due diligence process. Anyone who does not is telling you something important.
 
-Hannah Kamau is a legal practitioner specialising in conveyancing and property transactions at AMCCO Properties Ltd, Nairobi. She writes on property law, legal technology, and access to justice in Kenya and across Africa.
+  Hannah Njeri is a legal practitioner specialising in conveyancing and property transactions at AMCCO Properties Ltd, Nairobi. She writes on property law, legal technology, and access to justice in Kenya and across Africa.
 `,
     highlights: ['Verify title deeds independently', 'Conduct a physical survey of boundaries', 'Obtain clearance for rates and rent'],
   },
@@ -513,9 +513,7 @@ export default function Home() {
             <p className="slide-up inline-flex w-fit items-center gap-2 rounded-full border border-gold/20 bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-gold shadow-sm" data-delay="1">
               Profile
             </p>
-            <h1 className="display-font slide-up mt-8 text-4xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-5xl" data-delay="2">
-              Hannah Kamau
-            </h1>
+            <!-- name removed from left column (kept in profile aside) -->
             <p className="display-font slide-up mt-3 max-w-lg text-lg italic leading-8 text-stone sm:text-xl" data-delay="2">
               Lawyer. Researcher. Builder of bridges between law, technology, and justice.
             </p>
@@ -539,22 +537,12 @@ export default function Home() {
             
             <div className="slide-up mt-12 grid gap-3 sm:grid-cols-3" data-delay="3">
               {[
-                {
-                  label: 'Property & commercial law',
-                  desc: 'Conveyancing, contracts, real estate transactions, and commercial legal practice in Kenya.',
-                },
-                {
-                  label: 'Legal technology & AI',
-                  desc: 'How artificial intelligence is reshaping legal practice, and what African legal frameworks need to do about it.',
-                },
-                {
-                  label: 'Human rights & access to justice',
-                  desc: 'Gender equality, land rights, and building legal systems that work for everyone - not just those who can afford them.',
-                },
-              ].map(({ label, desc }) => (
+                'Property & commercial law',
+                'Legal technology & AI',
+                'Human rights & access to justice',
+              ].map((label) => (
                 <div key={label} className="rounded-2xl border border-line bg-white/80 backdrop-blur p-4 text-left shadow-sm transition hover:shadow-md">
                   <p className="text-sm font-semibold leading-6 text-ink">{label}</p>
-                  <p className="mt-2 text-xs leading-5 text-stone">{desc}</p>
                 </div>
               ))}
             </div>
@@ -567,7 +555,7 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">Profile</p>
-                  <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Kamau</h2>
+                  <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Njeri</h2>
                   <p className="mt-3 max-w-md text-base leading-7 text-stone">
                     Kenyan lawyer focused on property and commercial law, with a growing research interest in legal technology, human rights, and access to justice.
                   </p>
@@ -1027,7 +1015,7 @@ export default function Home() {
                   </div>
 
                   <h1 className="display-font text-5xl sm:text-6xl font-semibold leading-tight tracking-[-0.03em] text-ink mb-8">
-                    Hannah Kamau
+                    Hannah Njeri
                   </h1>
 
                   <div className="mx-auto max-w-2xl pt-2">
