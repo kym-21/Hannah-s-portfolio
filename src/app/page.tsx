@@ -492,13 +492,22 @@ export default function Home() {
           </div>
           <div className="flex flex-col self-start justify-start pt-2 lg:pt-4 lg:pr-8 xl:pr-12">
             <p className="slide-up inline-flex w-fit items-center gap-2 rounded-full border border-gold/20 bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-gold shadow-sm" data-delay="1">
-              Emerging legal practice
+              Profile
             </p>
             <h1 className="display-font slide-up mt-8 text-4xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-5xl" data-delay="2">
-              Focused on real estate & commercial law
+              Hannah Kamau
             </h1>
+            <p className="display-font slide-up mt-3 max-w-lg text-lg italic leading-8 text-stone sm:text-xl" data-delay="2">
+              Lawyer. Researcher. Builder of bridges between law, technology, and justice.
+            </p>
             <p className="slide-up mt-6 max-w-lg text-lg leading-8 text-stone sm:text-xl" data-delay="2">
-              Early-career legal support for property transactions, conveyancing, and commercial contracts, grounded in practical court exposure.
+              I am a Kenyan lawyer with a Bachelor of Laws (LLB) from Mount Kenya University, currently working in conveyancing and property transactions at AMCCO Properties Ltd in Nairobi. My day-to-day is grounded in the precision of real estate law — drafting contracts, navigating title transfers, and ensuring that every transaction holds up to scrutiny.
+            </p>
+            <p className="slide-up mt-6 max-w-lg text-lg leading-8 text-stone sm:text-xl" data-delay="2">
+              But I have always believed that the law is most powerful when it reaches beyond the transaction. I write and research at the intersection of property law, human rights, artificial intelligence, and emerging financial technology — not because these areas are fashionable, but because I think they are where the most important questions about justice, access, and the future of African societies are being asked.
+            </p>
+            <p className="slide-up mt-6 max-w-lg text-lg leading-8 text-stone sm:text-xl" data-delay="2">
+              I am drawn to complexity. I find the same rigour I apply to a conveyancing deed useful when analysing a government AI policy, and the same care I put into a legal memo useful when writing about women&apos;s land rights. I believe lawyers who understand technology and technologists who understand law are among the most urgently needed people of this generation — and I am working, deliberately, to be both.
             </p>
             <div className="slide-up mt-10 flex flex-wrap gap-3" data-delay="3">
               <a
@@ -517,13 +526,22 @@ export default function Home() {
             
             <div className="slide-up mt-12 grid gap-3 sm:grid-cols-3" data-delay="3">
               {[
-                { label: '3', desc: 'Core Focus Areas' },
-                { label: 'Early', desc: 'Career Stage' },
-                { label: 'Growing', desc: 'Practice' },
+                {
+                  label: 'Property & commercial law',
+                  desc: 'Conveyancing, contracts, real estate transactions, and commercial legal practice in Kenya.',
+                },
+                {
+                  label: 'Legal technology & AI',
+                  desc: 'How artificial intelligence is reshaping legal practice, and what African legal frameworks need to do about it.',
+                },
+                {
+                  label: 'Human rights & access to justice',
+                  desc: 'Gender equality, land rights, and building legal systems that work for everyone - not just those who can afford them.',
+                },
               ].map(({ label, desc }) => (
-                <div key={label} className="rounded-2xl border border-line bg-white/80 backdrop-blur p-4 text-center shadow-sm hover:shadow-md transition">
-                  <p className="display-font text-3xl font-semibold text-gold">{label}</p>
-                  <p className="mt-1 text-xs uppercase tracking-wide text-stone font-medium">{desc}</p>
+                <div key={label} className="rounded-2xl border border-line bg-white/80 backdrop-blur p-4 text-left shadow-sm transition hover:shadow-md">
+                  <p className="text-sm font-semibold leading-6 text-ink">{label}</p>
+                  <p className="mt-2 text-xs leading-5 text-stone">{desc}</p>
                 </div>
               ))}
             </div>
@@ -536,8 +554,8 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">Profile</p>
-                  <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Njeri</h2>
-                  <p className="mt-3 text-base font-semibold text-gold">Early-career Lawyer | Real Estate & Commercial Law</p>
+                    <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Kamau</h2>
+                    <p className="mt-3 text-base font-semibold text-gold">Lawyer. Researcher. Builder of bridges between law, technology, and justice.</p>
                 </div>
                 <div className="rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/20 to-transparent backdrop-blur px-4 py-3 text-right shadow-sm">
                   <p className="text-xs uppercase tracking-[0.24em] text-gold font-bold">Based in</p>
@@ -547,26 +565,26 @@ export default function Home() {
 
               <div className="mt-8 grid gap-3">
                 <div className="rounded-xl bg-gradient-to-br from-paper/60 to-paper/40 backdrop-blur p-4 border border-line/30">
-                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Practice focus</p>
+                    <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Property & commercial law</p>
                   <p className="mt-2 text-sm leading-6 text-ink font-medium">
-                    Real estate transactions, property conveyancing, commercial contracts, and compliance advisory.
+                      Conveyancing, contracts, real estate transactions, and commercial legal practice in Kenya.
                   </p>
                 </div>
                 <div className="rounded-xl bg-gradient-to-br from-paper/60 to-paper/40 backdrop-blur p-4 border border-line/30">
-                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Specialization</p>
-                  <p className="mt-2 text-sm leading-6 text-ink font-medium">Real estate transactions, property law, and commercial contracts</p>
+                    <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Legal technology & AI</p>
+                    <p className="mt-2 text-sm leading-6 text-ink font-medium">How artificial intelligence is reshaping legal practice, and what African legal frameworks need to do about it.</p>
                 </div>
                 <div className="rounded-xl bg-gradient-to-br from-paper/60 to-paper/40 backdrop-blur p-4 border border-line/30">
-                  <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Judicial experience</p>
-                  <p className="mt-2 text-sm leading-6 text-ink font-medium">Courtroom practice at the Law Courts in Limuru</p>
+                    <p className="text-xs uppercase tracking-[0.22em] text-stone font-bold">Human rights & access to justice</p>
+                    <p className="mt-2 text-sm leading-6 text-ink font-medium">Gender equality, land rights, and building legal systems that work for everyone - not just those who can afford them.</p>
                 </div>
               </div>
 
               <div className="mt-8 grid gap-2 sm:grid-cols-3">
                 {[
-                  ['3', 'Core focus areas'],
-                  ['Early', 'Career stage'],
-                  ['Growing', 'Client portfolio'],
+                    ['LLB', 'Mount Kenya University'],
+                    ['Nairobi', 'Kenya'],
+                    ['Research', 'and drafting'],
                 ].map(([value, label]) => (
                   <div key={label} className="rounded-xl border border-gold/20 bg-gradient-to-br from-gold/10 to-transparent backdrop-blur px-4 py-4 text-center shadow-sm hover:shadow-md transition">
                     <p className="display-font text-3xl font-bold text-gold">{value}</p>
