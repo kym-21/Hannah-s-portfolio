@@ -519,14 +519,15 @@ export default function Home() {
             <p className="display-font slide-up mt-3 max-w-lg text-lg italic leading-8 text-stone sm:text-xl" data-delay="2">
               Lawyer. Researcher. Builder of bridges between law, technology, and justice.
             </p>
-            <p className="slide-up mt-6 max-w-lg text-lg leading-8 text-stone sm:text-xl" data-delay="2">
-              I am a Kenyan lawyer with a Bachelor of Laws (LLB) from Mount Kenya University, currently working in conveyancing and property transactions at AMCCO Properties Ltd in Nairobi. My day-to-day is grounded in the precision of real estate law — drafting contracts, navigating title transfers, and ensuring that every transaction holds up to scrutiny.
-            </p>
-            <p className="slide-up mt-6 max-w-lg text-lg leading-8 text-stone sm:text-xl" data-delay="2">
-              But I have always believed that the law is most powerful when it reaches beyond the transaction. I write and research at the intersection of property law, human rights, artificial intelligence, and emerging financial technology — not because these areas are fashionable, but because I think they are where the most important questions about justice, access, and the future of African societies are being asked.
-            </p>
-            <p className="slide-up mt-6 max-w-lg text-lg leading-8 text-stone sm:text-xl" data-delay="2">
-              I am drawn to complexity. I find the same rigour I apply to a conveyancing deed useful when analysing a government AI policy, and the same care I put into a legal memo useful when writing about women&apos;s land rights. I believe lawyers who understand technology and technologists who understand law are among the most urgently needed people of this generation — and I am working, deliberately, to be both.
+            <p className="slide-up mt-6 max-w-md text-lg leading-7 text-stone sm:text-xl" data-delay="2">
+              Kenyan lawyer focused on property and commercial law — experienced in conveyancing, contract drafting, and title transfers.
+              <button
+                type="button"
+                onClick={handleAboutOpen}
+                className="ml-3 inline-flex items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-sm font-semibold text-paper transition hover:bg-ink/90 shadow-sm"
+              >
+                About me
+              </button>
             </p>
             <div className="slide-up mt-10 flex flex-wrap gap-3" data-delay="3">
               <a
