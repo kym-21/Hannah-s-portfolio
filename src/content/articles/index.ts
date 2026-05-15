@@ -11,3 +11,6 @@ export const articles: Article[] = [
   whyDueDiligenceMatters,
   buildingTrustInPractice,
 ];
+
+export const getArticleBySlug = (slug: string) =>
+  articles.find((article) => article.slug === slug);
