@@ -552,8 +552,7 @@ export default function Home() {
             <div className="rounded-[2rem] border border-line bg-white/95 p-8 shadow-lg backdrop-blur-xl border-l-4 border-l-gold">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">Profile</p>
-                  <h2 className="display-font mt-3 text-5xl text-ink leading-tight">Hannah Njeri</h2>
+                  <!-- removed 'Profile' label and name from aside to declutter left column -->
                   <p className="mt-3 max-w-md text-base leading-7 text-stone">
                     Kenyan lawyer focused on property and commercial law, with a growing research interest in legal technology, human rights, and access to justice.
                   </p>
@@ -1009,7 +1008,6 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-6">
                     <span className="text-[0.65rem] uppercase tracking-[0.28em] text-gold font-semibold">About me</span>
-                    <span className="text-[0.65rem] uppercase tracking-[0.28em] text-stone font-semibold">Profile</span>
                   </div>
 
                   <h1 className="display-font text-5xl sm:text-6xl font-semibold leading-tight tracking-[-0.03em] text-ink mb-8">
@@ -1062,7 +1060,7 @@ export default function Home() {
                           onClick={handleAboutClose}
                           className="inline-flex rounded-full border border-ink/20 bg-white px-8 py-3.5 text-base font-semibold text-ink shadow-md transition hover:border-ink/40 hover:bg-white/80 hover:shadow-lg"
                         >
-                          Back to profile
+                          Close
                         </button>
                       </div>
                     </div>
