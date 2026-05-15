@@ -510,9 +510,7 @@ export default function Home() {
             <div className="absolute bottom-20 -right-40 w-96 h-96 rounded-full bg-gradient-to-tl from-gold/15 to-transparent blur-3xl" />
           </div>
           <div className="flex flex-col self-start justify-start pt-2 lg:pt-4 lg:pr-8 xl:pr-12">
-            <p className="slide-up inline-flex w-fit items-center gap-2 rounded-full border border-gold/20 bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-gold shadow-sm" data-delay="1">
-              Profile
-            </p>
+            <!-- profile pill removed to keep left column minimal -->
             <!-- name removed from left column (kept in profile aside) -->
             <p className="display-font slide-up mt-3 max-w-lg text-lg italic leading-8 text-stone sm:text-xl" data-delay="2">
               Lawyer. Researcher. Builder of bridges between law, technology, and justice.
