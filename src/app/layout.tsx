@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Manrope } from 'next/font/google';
+import { Cormorant_Garamond, Fraunces, Manrope } from 'next/font/google';
 import './globals.css';
 
 const bodyFont = Manrope({
@@ -10,6 +10,11 @@ const bodyFont = Manrope({
 const displayFont = Cormorant_Garamond({
   subsets: ['latin'],
   variable: '--font-serif',
+});
+
+const accentFont = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-accent',
 });
 
 export const metadata: Metadata = {
@@ -25,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bodyFont.variable} ${displayFont.variable} font-sans`}>
+      <body className={`${bodyFont.variable} ${displayFont.variable} ${accentFont.variable} font-sans`}>
         {children}
       </body>
     </html>

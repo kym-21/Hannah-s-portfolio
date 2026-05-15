@@ -2,7 +2,7 @@ import type { Article } from './types';
 
 export const whyDueDiligenceMatters: Article = {
   slug: 'why-due-diligence-matters',
-  title: 'Why due diligence matters in real estate transactions',
+  title: 'Why Due Diligence Matters',
   category: 'Transactions',
   summary:
     'An article-style overview of the legal and commercial risks that surface when conveyancing is rushed or poorly documented.',

@@ -195,7 +195,7 @@ Hannah Kamau is a legal practitioner specialising in conveyancing and property t
   },
   {
     slug: 'due-diligence-in-property-what-to-check-before-you-buy',
-    title: 'Due Diligence in Property: What to Check Before You Buy',
+    title: 'Why Due Diligence Matters',
     category: 'Property Law',
     summary: 'A practical checklist: title, identity, rates, surveys, cautions, and planning permissions.',
     readTime: '6 min read',
@@ -625,19 +625,21 @@ export default function Home() {
                 const isOpen = openArticleSlug === article.slug;
 
                 return (
-                  <article key={article.slug} className="article-card group rounded-[2rem] border border-line/50 bg-white/90 backdrop-blur p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-gold/40 hover:bg-white">
-                    <div className="card-body">
+                  <article key={article.slug} className="article-card group flex h-full flex-col rounded-[2rem] border border-line/50 bg-white/90 p-6 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-gold/40 hover:bg-white hover:shadow-lg">
+                    <div className="card-body flex flex-1 flex-col">
                       <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.26em] font-semibold">
                         <span className="rounded-full bg-gold/12 px-3 py-1.5 text-gold">{article.category}</span>
                         <span className="text-stone/60">{article.readTime}</span>
                       </div>
-                      <h3 className="display-font mt-5 text-3xl font-bold leading-snug tracking-[-0.02em] text-ink">{article.title}</h3>
+                      <h3 className="display-font mt-5 text-3xl font-bold leading-snug tracking-[-0.02em] text-ink">
+                        {article.title}
+                      </h3>
                       <p className="mt-4 text-[0.95rem] leading-7 text-stone/80">{article.summary}</p>
 
                       <button
                         type="button"
                         onClick={() => handleArticleOpen(article)}
-                        className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold/85 px-6 py-2.5 text-sm font-bold text-ink shadow-md transition hover:shadow-lg hover:from-gold/95 hover:to-gold/90 active:scale-95"
+                        className="mt-auto inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold/85 px-6 py-2.5 text-sm font-bold text-ink shadow-md transition hover:from-gold/95 hover:to-gold/90 hover:shadow-lg active:scale-95"
                       >
                         <span>Read</span>
                         <svg className="h-3.5 w-3.5 transition group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
